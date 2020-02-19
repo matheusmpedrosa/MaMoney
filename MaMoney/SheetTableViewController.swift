@@ -8,22 +8,28 @@
 
 import UIKit
 
-enum HeightConstants: CGFloat {
+public enum HeightConstants: CGFloat {
     case kNotchHeight = 34.0
-    case kFooterViewAccessibilityHeight = 80.0
+    case kFooterViewAccessibilityHeight = 120.0
     case kFooterViewHeight = 40.0
 }
 
 class SheetTableViewController: UIViewController {
-    var viewTitle: String
-    var sheet: Sheet
-    var footerView = TotalAmountView(frame: .zero)
     
-    lazy private var tableView: UITableView = {
+    fileprivate lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
         return tableView
     }()
+
+    fileprivate var viewTitle: String
+    fileprivate var sheet: Sheet
+    fileprivate var footerView = TotalAmountView(frame: .zero)
+    
+    fileprivate var commomConstraints: [NSLayoutConstraint] = []
+    fileprivate var regularConstraints: [NSLayoutConstraint] = []
+    fileprivate var largeTextConstraints: [NSLayoutConstraint] = []
     
     init(sheet: Sheet) {
         self.viewTitle = sheet.title
@@ -60,7 +66,7 @@ class SheetTableViewController: UIViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         let accessibilityCategory = traitCollection.preferredContentSizeCategory.isAccessibilityCategory
         if accessibilityCategory != previousTraitCollection?.preferredContentSizeCategory.isAccessibilityCategory {
-            setupConstraints()
+            updateLayoutConstraints()
         }
     }
 }
@@ -91,42 +97,48 @@ extension SheetTableViewController: ViewConfiguration {
     }
     
     func setupConstraints() {
+        commomConstraints = [
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: footerView.topAnchor),
+            
+            footerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            footerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            footerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ]
+        
         if UIDevice.current.hasNotch {
-            if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
-                footerView.anchor(top: nil, paddingTop: 0,
-                                  bottom: view.bottomAnchor, paddingBottom: 0,
-                                  left: view.safeAreaLayoutGuide.leftAnchor, paddingLeft: 0,
-                                  right: view.safeAreaLayoutGuide.rightAnchor, paddingRight: 0,
-                                  width: 0, height: HeightConstants.kNotchHeight.rawValue
-                                                    + HeightConstants.kFooterViewAccessibilityHeight.rawValue)
-            } else {
-                footerView.anchor(top: nil, paddingTop: 0,
-                                  bottom: view.bottomAnchor, paddingBottom: 0,
-                                  left: view.safeAreaLayoutGuide.leftAnchor, paddingLeft: 0,
-                                  right: view.safeAreaLayoutGuide.rightAnchor, paddingRight: 0,
-                                  width: 0, height: HeightConstants.kNotchHeight.rawValue
-                                                    + HeightConstants.kFooterViewHeight.rawValue)
-            }
+            regularConstraints = [
+//                footerView.heightAnchor.constraint(equalToConstant: HeightConstants.kNotchHeight.rawValue
+//                                                                    + HeightConstants.kFooterViewHeight.rawValue)
+            ]
+            
+            largeTextConstraints = [
+//                footerView.heightAnchor.constraint(equalToConstant: HeightConstants.kNotchHeight.rawValue
+//                                                                    + HeightConstants.kFooterViewAccessibilityHeight.rawValue)
+            ]
         } else {
-            if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
-                footerView.anchor(top: nil, paddingTop: 0,
-                                  bottom: view.bottomAnchor, paddingBottom: 0,
-                                  left: view.safeAreaLayoutGuide.leftAnchor, paddingLeft: 0,
-                                  right: view.safeAreaLayoutGuide.rightAnchor, paddingRight: 0,
-                                  width: 0, height: HeightConstants.kFooterViewAccessibilityHeight.rawValue)
-            } else {
-                footerView.anchor(top: nil, paddingTop: 0,
-                                  bottom: view.bottomAnchor, paddingBottom: 0,
-                                  left: view.safeAreaLayoutGuide.leftAnchor, paddingLeft: 0,
-                                  right: view.safeAreaLayoutGuide.rightAnchor, paddingRight: 0,
-                                  width: 0, height: HeightConstants.kFooterViewHeight.rawValue)
-            }
+            regularConstraints = [
+//                footerView.heightAnchor.constraint(equalToConstant: HeightConstants.kFooterViewHeight.rawValue)
+            ]
+            
+            largeTextConstraints = [
+//                footerView.heightAnchor.constraint(equalToConstant: HeightConstants.kFooterViewAccessibilityHeight.rawValue)
+            ]
         }
         
-        tableView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 0,
-                         bottom: footerView.topAnchor, paddingBottom: 0,
-                         left: view.leftAnchor, paddingLeft: 0,
-                         right: view.rightAnchor, paddingRight: 0,
-                         width: 0, height: 0)
+        updateLayoutConstraints()
+    }
+    
+    func updateLayoutConstraints() {
+        NSLayoutConstraint.activate(commomConstraints)
+        if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
+            NSLayoutConstraint.deactivate(regularConstraints)
+            NSLayoutConstraint.activate(largeTextConstraints)
+        } else {
+            NSLayoutConstraint.deactivate(largeTextConstraints)
+            NSLayoutConstraint.activate(regularConstraints)
+        }
     }
 }

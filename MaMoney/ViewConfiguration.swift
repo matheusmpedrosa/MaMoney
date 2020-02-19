@@ -12,6 +12,7 @@ protocol ViewConfiguration: class {
     func configureView()
     func buildViewHierarchy()
     func setupConstraints()
+    func updateLayoutConstraints()
 }
 
 extension ViewConfiguration {
@@ -19,4 +20,6 @@ extension ViewConfiguration {
         buildViewHierarchy()
         setupConstraints()
     }
+    
+    //TODO: automatizar implementação do método updateLayoutConstraints()
 }

@@ -9,39 +9,49 @@
 import UIKit
 
 class TotalAmountView: UIView {
-    
-    lazy var backgroundView: UIView = {
+    fileprivate lazy var backgroundView: UIView = {
         let view = UIView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .secondarySystemGroupedBackground
         return view
     }()
     
-    lazy var separatorView: UIView = {
+    fileprivate lazy var separatorView: UIView = {
         let view = UIView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .systemGray5
         return view
     }()
     
-    lazy var title: UILabel = {
+    fileprivate lazy var title: UILabel = {
         var label = UILabel(frame: .zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "TOTAL:"
         label.textColor = .label
         label.adjustsFontForContentSizeCategory = true
-        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         return label
     }()
     
-    lazy var subtitle: UILabel = {
+    fileprivate lazy var subtitle: UILabel = {
         var label = UILabel(frame: .zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "R$ 0,00"
         label.textColor = .label
         label.adjustsFontForContentSizeCategory = true
-        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.font = UIFont.preferredFont(forTextStyle: .headline)
         return label
     }()
     
+    fileprivate var commomConstraints: [NSLayoutConstraint] = []
+    fileprivate var regularConstraints: [NSLayoutConstraint] = []
+    fileprivate var largeTextConstraints: [NSLayoutConstraint] = []
+    fileprivate let verticalAnchorConstraint: CGFloat = 15.0
+    fileprivate let horizontalAnchorConstraint: CGFloat = 20.0
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.translatesAutoresizingMaskIntoConstraints = false
         configureView()
     }
     
@@ -57,7 +67,7 @@ class TotalAmountView: UIView {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         let accessibilityCategory = traitCollection.preferredContentSizeCategory.isAccessibilityCategory
         if accessibilityCategory != previousTraitCollection?.preferredContentSizeCategory.isAccessibilityCategory {
-            setupConstraints()
+            updateLayoutConstraints()
         }
     }
 }
@@ -72,42 +82,58 @@ extension TotalAmountView: ViewConfiguration {
     }
     
     func setupConstraints() {
-        backgroundView.anchor(top: self.topAnchor, paddingTop: 0,
-                              bottom: self.bottomAnchor, paddingBottom: 0,
-                              left: self.leftAnchor, paddingLeft: 0,
-                              right: self.rightAnchor, paddingRight: 0,
-                              width: 0, height: 0)
-
-        separatorView.anchor(top: backgroundView.topAnchor, paddingTop: 0,
-                             bottom: nil, paddingBottom: 0,
-                             left: backgroundView.leftAnchor, paddingLeft: 0,
-                             right: backgroundView.rightAnchor, paddingRight: 0,
-                             width: 0, height: 1)
+        var bottonAnchor: CGFloat = 0.0
         
-        if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
-            title.anchor(top: backgroundView.topAnchor, paddingTop: 20,
-                         bottom: nil, paddingBottom: 0,
-                         left: backgroundView.leftAnchor, paddingLeft: 20,
-                         right: nil, paddingRight: 0,
-                         width: 0, height: 0)
+        commomConstraints = [
+            backgroundView.topAnchor.constraint(equalTo: self.topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             
-            subtitle.anchor(top: title.bottomAnchor, paddingTop: 10,
-                            bottom: nil, paddingBottom: 0,
-                            left: backgroundView.leftAnchor, paddingLeft: 20,
-                            right: nil, paddingRight: 0,
-                            width: 0, height: 0)
+            separatorView.topAnchor.constraint(equalTo: backgroundView.topAnchor),
+            separatorView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
+            separatorView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
+            separatorView.heightAnchor.constraint(equalToConstant: 1.0)
+        ]
+        
+        if UIDevice.current.hasNotch {
+            bottonAnchor = -verticalAnchorConstraint - HeightConstants.kNotchHeight.rawValue
         } else {
-            title.anchor(top: backgroundView.topAnchor, paddingTop: 20,
-                         bottom: nil, paddingBottom: 0,
-                         left: backgroundView.leftAnchor, paddingLeft: 20,
-                         right: nil, paddingRight: 0,
-                         width: 0, height: 0)
+            bottonAnchor = -verticalAnchorConstraint
+        }
+        
+        regularConstraints = [
+            title.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: verticalAnchorConstraint),
+            title.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: horizontalAnchorConstraint),
+            title.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: bottonAnchor),
             
-            subtitle.anchor(top: backgroundView.topAnchor, paddingTop: 20,
-                            bottom: nil, paddingBottom: 0,
-                            left: nil, paddingLeft: 0,
-                            right: backgroundView.rightAnchor, paddingRight: 20,
-                            width: 0, height: 0)
+            subtitle.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: verticalAnchorConstraint),
+            subtitle.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -horizontalAnchorConstraint),
+            subtitle.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: bottonAnchor),
+        ]
+        
+        largeTextConstraints = [
+            title.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: verticalAnchorConstraint),
+            title.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: horizontalAnchorConstraint),
+            title.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -horizontalAnchorConstraint),
+            
+            subtitle.firstBaselineAnchor.constraint(equalToSystemSpacingBelow: title.lastBaselineAnchor, multiplier: 1.0),
+            subtitle.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: horizontalAnchorConstraint),
+            subtitle.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -horizontalAnchorConstraint),
+            subtitle.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: bottonAnchor),
+        ]
+        
+        updateLayoutConstraints()
+    }
+    
+    func updateLayoutConstraints() {
+        NSLayoutConstraint.activate(commomConstraints)
+        if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
+            NSLayoutConstraint.deactivate(regularConstraints)
+            NSLayoutConstraint.activate(largeTextConstraints)
+        } else {
+            NSLayoutConstraint.deactivate(largeTextConstraints)
+            NSLayoutConstraint.activate(regularConstraints)
         }
     }
 }
