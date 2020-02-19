@@ -104,21 +104,21 @@ extension TotalAmountView: ViewConfiguration {
         
         regularConstraints = [
             title.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: verticalAnchorConstraint),
-            title.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: horizontalAnchorConstraint),
+            title.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: horizontalAnchorConstraint),
             title.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: bottonAnchor),
             
             subtitle.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: verticalAnchorConstraint),
-            subtitle.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -horizontalAnchorConstraint),
+            subtitle.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -horizontalAnchorConstraint),
             subtitle.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: bottonAnchor),
         ]
         
         largeTextConstraints = [
             title.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: verticalAnchorConstraint),
-            title.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: horizontalAnchorConstraint),
+            title.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: horizontalAnchorConstraint),
             title.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -horizontalAnchorConstraint),
             
             subtitle.firstBaselineAnchor.constraint(equalToSystemSpacingBelow: title.lastBaselineAnchor, multiplier: 1.0),
-            subtitle.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: horizontalAnchorConstraint),
+            subtitle.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: horizontalAnchorConstraint),
             subtitle.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -horizontalAnchorConstraint),
             subtitle.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: bottonAnchor),
         ]

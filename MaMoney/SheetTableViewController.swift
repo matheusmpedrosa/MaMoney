@@ -103,30 +103,10 @@ extension SheetTableViewController: ViewConfiguration {
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: footerView.topAnchor),
             
-            footerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            footerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            footerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            footerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             footerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ]
-        
-        if UIDevice.current.hasNotch {
-            regularConstraints = [
-//                footerView.heightAnchor.constraint(equalToConstant: HeightConstants.kNotchHeight.rawValue
-//                                                                    + HeightConstants.kFooterViewHeight.rawValue)
-            ]
-            
-            largeTextConstraints = [
-//                footerView.heightAnchor.constraint(equalToConstant: HeightConstants.kNotchHeight.rawValue
-//                                                                    + HeightConstants.kFooterViewAccessibilityHeight.rawValue)
-            ]
-        } else {
-            regularConstraints = [
-//                footerView.heightAnchor.constraint(equalToConstant: HeightConstants.kFooterViewHeight.rawValue)
-            ]
-            
-            largeTextConstraints = [
-//                footerView.heightAnchor.constraint(equalToConstant: HeightConstants.kFooterViewAccessibilityHeight.rawValue)
-            ]
-        }
         
         updateLayoutConstraints()
     }
