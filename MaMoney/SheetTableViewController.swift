@@ -8,8 +8,13 @@
 
 import UIKit
 
+enum HeightConstants: CGFloat {
+    case kNotchHeight = 34.0
+    case kFooterViewAccessibilityHeight = 80.0
+    case kFooterViewHeight = 40.0
+}
+
 class SheetTableViewController: UIViewController {
-    
     var viewTitle: String
     var sheet: Sheet
     var footerView = TotalAmountView(frame: .zero)
@@ -34,19 +39,32 @@ class SheetTableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = viewTitle
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationController?.navigationBar.tintColor = sheet.color
-        self.tableView.tableFooterView = UIView()
+        setupViewUI()
         registerCell()
         configureView()
-        footerView.backgroundColor = .red
+    }
+    
+    private func setupViewUI() {
+        self.title = viewTitle
+        self.view.backgroundColor = .systemBackground
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationBar.tintColor = sheet.color
+        self.navigationController?.navigationBar.backgroundColor = .systemBackground
+        self.tableView.tableFooterView = UIView()
     }
     
     private func registerCell() {
         tableView.register(SheetItemsTableViewCell.self, forCellReuseIdentifier: "sheetItemsCell")
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        let accessibilityCategory = traitCollection.preferredContentSizeCategory.isAccessibilityCategory
+        if accessibilityCategory != previousTraitCollection?.preferredContentSizeCategory.isAccessibilityCategory {
+            setupConstraints()
+        }
+    }
 }
+
     
 extension SheetTableViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -74,20 +92,38 @@ extension SheetTableViewController: ViewConfiguration {
     
     func setupConstraints() {
         if UIDevice.current.hasNotch {
-            footerView.anchor(top: nil, paddingTop: 0,
-                              bottom: view.bottomAnchor, paddingBottom: 0,
-                              left: view.safeAreaLayoutGuide.leftAnchor, paddingLeft: 0,
-                              right: view.safeAreaLayoutGuide.rightAnchor, paddingRight: 0,
-                              width: 0, height: 40+34)
+            if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
+                footerView.anchor(top: nil, paddingTop: 0,
+                                  bottom: view.bottomAnchor, paddingBottom: 0,
+                                  left: view.safeAreaLayoutGuide.leftAnchor, paddingLeft: 0,
+                                  right: view.safeAreaLayoutGuide.rightAnchor, paddingRight: 0,
+                                  width: 0, height: HeightConstants.kNotchHeight.rawValue
+                                                    + HeightConstants.kFooterViewAccessibilityHeight.rawValue)
+            } else {
+                footerView.anchor(top: nil, paddingTop: 0,
+                                  bottom: view.bottomAnchor, paddingBottom: 0,
+                                  left: view.safeAreaLayoutGuide.leftAnchor, paddingLeft: 0,
+                                  right: view.safeAreaLayoutGuide.rightAnchor, paddingRight: 0,
+                                  width: 0, height: HeightConstants.kNotchHeight.rawValue
+                                                    + HeightConstants.kFooterViewHeight.rawValue)
+            }
         } else {
-            footerView.anchor(top: nil, paddingTop: 0,
-                              bottom: view.bottomAnchor, paddingBottom: 0,
-                              left: view.safeAreaLayoutGuide.leftAnchor, paddingLeft: 0,
-                              right: view.safeAreaLayoutGuide.rightAnchor, paddingRight: 0,
-                              width: 0, height: 40)
+            if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
+                footerView.anchor(top: nil, paddingTop: 0,
+                                  bottom: view.bottomAnchor, paddingBottom: 0,
+                                  left: view.safeAreaLayoutGuide.leftAnchor, paddingLeft: 0,
+                                  right: view.safeAreaLayoutGuide.rightAnchor, paddingRight: 0,
+                                  width: 0, height: HeightConstants.kFooterViewAccessibilityHeight.rawValue)
+            } else {
+                footerView.anchor(top: nil, paddingTop: 0,
+                                  bottom: view.bottomAnchor, paddingBottom: 0,
+                                  left: view.safeAreaLayoutGuide.leftAnchor, paddingLeft: 0,
+                                  right: view.safeAreaLayoutGuide.rightAnchor, paddingRight: 0,
+                                  width: 0, height: HeightConstants.kFooterViewHeight.rawValue)
+            }
         }
         
-        tableView.anchor(top: view.topAnchor, paddingTop: 0,
+        tableView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 0,
                          bottom: footerView.topAnchor, paddingBottom: 0,
                          left: view.leftAnchor, paddingLeft: 0,
                          right: view.rightAnchor, paddingRight: 0,

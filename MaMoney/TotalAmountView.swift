@@ -27,6 +27,7 @@ class TotalAmountView: UIView {
         label.text = "TOTAL:"
         label.textColor = .label
         label.adjustsFontForContentSizeCategory = true
+        label.font = UIFont.preferredFont(forTextStyle: .body)
         return label
     }()
     
@@ -35,6 +36,7 @@ class TotalAmountView: UIView {
         label.text = "R$ 0,00"
         label.textColor = .label
         label.adjustsFontForContentSizeCategory = true
+        label.font = UIFont.preferredFont(forTextStyle: .body)
         return label
     }()
     
@@ -50,6 +52,13 @@ class TotalAmountView: UIView {
     public func setup(total: String?) {
         guard let total = total else { return }
         subtitle.text = total
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        let accessibilityCategory = traitCollection.preferredContentSizeCategory.isAccessibilityCategory
+        if accessibilityCategory != previousTraitCollection?.preferredContentSizeCategory.isAccessibilityCategory {
+            setupConstraints()
+        }
     }
 }
 
@@ -74,17 +83,31 @@ extension TotalAmountView: ViewConfiguration {
                              left: backgroundView.leftAnchor, paddingLeft: 0,
                              right: backgroundView.rightAnchor, paddingRight: 0,
                              width: 0, height: 1)
-
-        title.anchor(top: backgroundView.topAnchor, paddingTop: 20,
-                     bottom: nil, paddingBottom: 0,
-                     left: backgroundView.leftAnchor, paddingLeft: 20,
-                     right: nil, paddingRight: 0,
-                     width: 0, height: 0)
-
-        subtitle.anchor(top: backgroundView.topAnchor, paddingTop: 20,
-                        bottom: nil, paddingBottom: 0,
-                        left: nil, paddingLeft: 0,
-                        right: backgroundView.rightAnchor, paddingRight: 20,
-                        width: 0, height: 0)
+        
+        if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
+            title.anchor(top: backgroundView.topAnchor, paddingTop: 20,
+                         bottom: nil, paddingBottom: 0,
+                         left: backgroundView.leftAnchor, paddingLeft: 20,
+                         right: nil, paddingRight: 0,
+                         width: 0, height: 0)
+            
+            subtitle.anchor(top: title.bottomAnchor, paddingTop: 10,
+                            bottom: nil, paddingBottom: 0,
+                            left: backgroundView.leftAnchor, paddingLeft: 20,
+                            right: nil, paddingRight: 0,
+                            width: 0, height: 0)
+        } else {
+            title.anchor(top: backgroundView.topAnchor, paddingTop: 20,
+                         bottom: nil, paddingBottom: 0,
+                         left: backgroundView.leftAnchor, paddingLeft: 20,
+                         right: nil, paddingRight: 0,
+                         width: 0, height: 0)
+            
+            subtitle.anchor(top: backgroundView.topAnchor, paddingTop: 20,
+                            bottom: nil, paddingBottom: 0,
+                            left: nil, paddingLeft: 0,
+                            right: backgroundView.rightAnchor, paddingRight: 20,
+                            width: 0, height: 0)
+        }
     }
 }

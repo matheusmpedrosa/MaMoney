@@ -22,7 +22,7 @@
 		805DFFAE23F0B8390080284C /* Decimal+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFFAD23F0B8390080284C /* Decimal+Extensions.swift */; };
 		805DFFB023F0CF320080284C /* SheetItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFFAF23F0CF320080284C /* SheetItemsTableViewCell.swift */; };
 		805DFFB323F0D3950080284C /* TotalAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFFB223F0D3950080284C /* TotalAmountView.swift */; };
-		805DFFB523F0E7830080284C /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFFB423F0E7830080284C /* UIDevice+Extension.swift */; };
+		805DFFB523F0E7830080284C /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFFB423F0E7830080284C /* UIDevice+Extensions.swift */; };
 		808B4A4A23F0822B0032147F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808B4A4923F0822B0032147F /* AppDelegate.swift */; };
 		808B4A4C23F0822B0032147F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808B4A4B23F0822B0032147F /* SceneDelegate.swift */; };
 		808B4A5323F082320032147F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 808B4A5223F082320032147F /* Assets.xcassets */; };
@@ -45,7 +45,7 @@
 		805DFFAD23F0B8390080284C /* Decimal+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decimal+Extensions.swift"; sourceTree = "<group>"; };
 		805DFFAF23F0CF320080284C /* SheetItemsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetItemsTableViewCell.swift; sourceTree = "<group>"; };
 		805DFFB223F0D3950080284C /* TotalAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalAmountView.swift; sourceTree = "<group>"; };
-		805DFFB423F0E7830080284C /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
+		805DFFB423F0E7830080284C /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
 		808B4A4623F0822B0032147F /* MaMoney.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MaMoney.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		808B4A4923F0822B0032147F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		808B4A4B23F0822B0032147F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,7 +72,7 @@
 				805DFF9323F08DDB0080284C /* UIViewController+Extensions.swift */,
 				805DFFAB23F0B3FB0080284C /* UIColor+Extensions.swift */,
 				805DFFAD23F0B8390080284C /* Decimal+Extensions.swift */,
-				805DFFB423F0E7830080284C /* UIDevice+Extension.swift */,
+				805DFFB423F0E7830080284C /* UIDevice+Extensions.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -264,7 +264,7 @@
 				805DFFB323F0D3950080284C /* TotalAmountView.swift in Sources */,
 				805DFFAE23F0B8390080284C /* Decimal+Extensions.swift in Sources */,
 				808B4A4C23F0822B0032147F /* SceneDelegate.swift in Sources */,
-				805DFFB523F0E7830080284C /* UIDevice+Extension.swift in Sources */,
+				805DFFB523F0E7830080284C /* UIDevice+Extensions.swift in Sources */,
 				805DFFAA23F0ABFF0080284C /* SheetTableViewCell.swift in Sources */,
 				805DFFAC23F0B3FB0080284C /* UIColor+Extensions.swift in Sources */,
 				805DFF9423F08DDB0080284C /* UIViewController+Extensions.swift in Sources */,

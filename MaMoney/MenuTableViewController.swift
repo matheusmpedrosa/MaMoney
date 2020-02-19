@@ -30,10 +30,16 @@ class MenuTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViewUI()
+        registerCell()
+    }
+    
+    
+    
+    private func setupViewUI() {
         self.title = viewTitle
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.tableView.tableFooterView = UIView()
-        registerCell()
     }
     
     private func registerCell() {
