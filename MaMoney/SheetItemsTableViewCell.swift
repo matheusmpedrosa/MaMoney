@@ -20,7 +20,11 @@ class SheetItemsTableViewCell: UITableViewCell {
     
     public func setup(sheet: SheetItem) {
         self.textLabel?.text = sheet.title
+        self.textLabel?.numberOfLines = 0
+        self.textLabel?.lineBreakMode = .byWordWrapping
         self.detailTextLabel?.text = sheet.value.toBrazilianRealString()
+        self.detailTextLabel?.numberOfLines = 0
+        self.detailTextLabel?.lineBreakMode = .byWordWrapping
         self.selectionStyle = .none
     }
 
