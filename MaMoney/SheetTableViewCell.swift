@@ -10,13 +10,6 @@ import UIKit
 
 class SheetTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        self.textLabel?.numberOfLines = 0
-        self.textLabel?.lineBreakMode = .byWordWrapping
-        self.selectionStyle = .none
-    }
-
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
     }
@@ -27,6 +20,9 @@ class SheetTableViewCell: UITableViewCell {
     
     public func setup(sheet: Sheet) {
         self.textLabel?.text = sheet.title
+        self.textLabel?.numberOfLines = 0
+        self.textLabel?.lineBreakMode = .byWordWrapping
+        self.selectionStyle = .none
     }
 
 }

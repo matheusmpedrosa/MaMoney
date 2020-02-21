@@ -11,7 +11,6 @@
 		805DFF9423F08DDB0080284C /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFF9323F08DDB0080284C /* UIViewController+Extensions.swift */; };
 		805DFF9723F08E850080284C /* TablesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFF9623F08E850080284C /* TablesViewController.swift */; };
 		805DFF9923F08F170080284C /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFF9823F08F170080284C /* ItemsViewController.swift */; };
-		805DFF9B23F08F240080284C /* NewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFF9A23F08F240080284C /* NewTableViewController.swift */; };
 		805DFF9E23F091330080284C /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFF9D23F091330080284C /* Table.swift */; };
 		805DFFA223F092740080284C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFFA123F092740080284C /* Item.swift */; };
 		805DFFA523F095260080284C /* SheetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFFA423F095260080284C /* SheetType.swift */; };
@@ -36,7 +35,6 @@
 		805DFF9323F08DDB0080284C /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		805DFF9623F08E850080284C /* TablesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablesViewController.swift; sourceTree = "<group>"; };
 		805DFF9823F08F170080284C /* ItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
-		805DFF9A23F08F240080284C /* NewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTableViewController.swift; sourceTree = "<group>"; };
 		805DFF9D23F091330080284C /* Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
 		805DFFA123F092740080284C /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		805DFFA423F095260080284C /* SheetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetType.swift; sourceTree = "<group>"; };
@@ -94,7 +92,6 @@
 				8087782B23FEE77500D8B9EB /* SheetsViewController.swift */,
 				805DFF9623F08E850080284C /* TablesViewController.swift */,
 				805DFF9823F08F170080284C /* ItemsViewController.swift */,
-				805DFF9A23F08F240080284C /* NewTableViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -264,7 +261,6 @@
 				805DFF9923F08F170080284C /* ItemsViewController.swift in Sources */,
 				8087783223FF18A300D8B9EB /* ItemTableViewCell.swift in Sources */,
 				808B4A4A23F0822B0032147F /* AppDelegate.swift in Sources */,
-				805DFF9B23F08F240080284C /* NewTableViewController.swift in Sources */,
 				805DFF9E23F091330080284C /* Table.swift in Sources */,
 				805DFF9723F08E850080284C /* TablesViewController.swift in Sources */,
 				805DFFB323F0D3950080284C /* TotalAmountView.swift in Sources */,

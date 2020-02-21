@@ -23,6 +23,15 @@ class TotalAmountView: UIView {
         return view
     }()
     
+    fileprivate lazy var accessibilityContainer: UIView = {
+        let view = UIView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        view.isAccessibilityElement = true
+        view.accessibilityTraits = .staticText
+        return view
+    }()
+    
     fileprivate lazy var title: UILabel = {
         var label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -30,6 +39,7 @@ class TotalAmountView: UIView {
         label.textColor = .label
         label.adjustsFontForContentSizeCategory = true
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        label.accessibilityElementsHidden = true
         return label
     }()
     
@@ -40,6 +50,7 @@ class TotalAmountView: UIView {
         label.textColor = .label
         label.adjustsFontForContentSizeCategory = true
         label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.accessibilityElementsHidden = true
         return label
     }()
     
@@ -62,6 +73,7 @@ class TotalAmountView: UIView {
     public func setup(total: String?) {
         guard let total = total else { return }
         subtitle.text = total
+        accessibilityContainer.accessibilityLabel = "total: \(total)"
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -75,6 +87,7 @@ class TotalAmountView: UIView {
 extension TotalAmountView: ViewConfiguration {
     func buildViewHierarchy() {
         backgroundView.addSubview(separatorView)
+        backgroundView.addSubview(accessibilityContainer)
         backgroundView.addSubview(title)
         backgroundView.addSubview(subtitle)
 
@@ -82,19 +95,8 @@ extension TotalAmountView: ViewConfiguration {
     }
     
     func setupConstraints() {
-        var bottonAnchor: CGFloat = 0.0
+        var bottonAnchor: CGFloat
         
-        commomConstraints = [
-            backgroundView.topAnchor.constraint(equalTo: self.topAnchor),
-            backgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            backgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            backgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            
-            separatorView.topAnchor.constraint(equalTo: backgroundView.topAnchor),
-            separatorView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
-            separatorView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
-            separatorView.heightAnchor.constraint(equalToConstant: 1.0)
-        ]
         
         if UIDevice.current.hasNotch {
             bottonAnchor = -verticalAnchorConstraint - HeightConstants.kNotchHeight.rawValue
@@ -102,10 +104,29 @@ extension TotalAmountView: ViewConfiguration {
             bottonAnchor = -verticalAnchorConstraint
         }
         
+        commomConstraints = [
+            backgroundView.topAnchor.constraint(equalTo: self.topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            
+            accessibilityContainer.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 8),
+            accessibilityContainer.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 8),
+            accessibilityContainer.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -8),
+//            accessibilityContainer.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -8),
+
+            separatorView.topAnchor.constraint(equalTo: backgroundView.topAnchor),
+            separatorView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
+            separatorView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
+            separatorView.heightAnchor.constraint(equalToConstant: 1.0)
+        ]
+        
         regularConstraints = [
             title.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: verticalAnchorConstraint),
             title.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: horizontalAnchorConstraint),
             title.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: bottonAnchor),
+            
+            accessibilityContainer.heightAnchor.constraint(equalTo: subtitle.heightAnchor, constant: 15),
             
             subtitle.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: verticalAnchorConstraint),
             subtitle.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -horizontalAnchorConstraint),
@@ -116,6 +137,8 @@ extension TotalAmountView: ViewConfiguration {
             title.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: verticalAnchorConstraint),
             title.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: horizontalAnchorConstraint),
             title.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -horizontalAnchorConstraint),
+            
+            accessibilityContainer.heightAnchor.constraint(equalTo: subtitle.heightAnchor, multiplier: 2.0, constant: 15),
             
             subtitle.firstBaselineAnchor.constraint(equalToSystemSpacingBelow: title.lastBaselineAnchor, multiplier: 1.0),
             subtitle.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: horizontalAnchorConstraint),
