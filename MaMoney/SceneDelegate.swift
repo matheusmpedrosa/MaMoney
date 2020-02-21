@@ -20,7 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             let navigationController = UINavigationController()
-            let mainViewController = MenuTableViewController(viewTitle: "Sheets")
+            let mainViewController = SheetsViewController(viewTitle: "Sheets",
+                                                          sheets: [Sheet().getJanuarySheetMock()])
             navigationController.viewControllers.append(mainViewController)
             window.rootViewController = navigationController
             self.window = window

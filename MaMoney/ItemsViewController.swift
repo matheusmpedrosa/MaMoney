@@ -1,5 +1,5 @@
 //
-//  SheetTableViewController.swift
+//  ItemsViewController.swift
 //  MaMoney
 //
 //  Created by Matheus Pedrosa on 09/02/20.
@@ -14,7 +14,7 @@ public enum HeightConstants: CGFloat {
     case kFooterViewHeight = 40.0
 }
 
-class SheetTableViewController: UIViewController {
+class ItemsViewController: UIViewController {
     
     fileprivate lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
@@ -24,17 +24,17 @@ class SheetTableViewController: UIViewController {
     }()
 
     fileprivate var viewTitle: String
-    fileprivate var sheet: Sheet
+    fileprivate var table: Table
     fileprivate var footerView = TotalAmountView(frame: .zero)
     
     fileprivate var commomConstraints: [NSLayoutConstraint] = []
     fileprivate var regularConstraints: [NSLayoutConstraint] = []
     fileprivate var largeTextConstraints: [NSLayoutConstraint] = []
     
-    init(sheet: Sheet) {
-        self.viewTitle = sheet.title
-        self.sheet = sheet
-        let total = sheet.totalAmount?.toBrazilianRealString()
+    init(table: Table) {
+        self.viewTitle = table.title
+        self.table = table
+        let total = table.totalAmount?.toBrazilianRealString()
         self.footerView.setup(total: total)
         super.init(nibName: nil, bundle: nil)
     }
@@ -50,17 +50,22 @@ class SheetTableViewController: UIViewController {
         configureView()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        navigationController?.navigationBar.tintColor = .systemBlue
+    }
+    
     private func setupViewUI() {
         self.title = viewTitle
         self.view.backgroundColor = .systemBackground
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationController?.navigationBar.tintColor = sheet.color
+        self.navigationController?.navigationBar.tintColor = table.color
         self.navigationController?.navigationBar.backgroundColor = .systemBackground
         self.tableView.tableFooterView = UIView()
     }
     
     private func registerCell() {
-        tableView.register(SheetItemsTableViewCell.self, forCellReuseIdentifier: "sheetItemsCell")
+        tableView.register(ItemTableViewCell.self, forCellReuseIdentifier: String(describing: ItemTableViewCell.self))
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -72,25 +77,26 @@ class SheetTableViewController: UIViewController {
 }
 
     
-extension SheetTableViewController: UITableViewDataSource {
+extension ItemsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sheet.items.count
+        return table.items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "sheetItemsCell", for: indexPath) as? SheetItemsTableViewCell else {
-            fatalError("Could not dequeue SheetItemsTableViewCell.")
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ItemTableViewCell.self),
+                                                       for: indexPath) as? ItemTableViewCell else {
+            fatalError("Could not dequeue ItemTableViewCell.")
         }
-        cell.setup(sheet: sheet.items[indexPath.row])
+        cell.setup(item: table.items[indexPath.row])
         return cell
     }
 }
 
-extension SheetTableViewController: ViewConfiguration {
+extension ItemsViewController: ViewConfiguration {
     func buildViewHierarchy() {
         view.addSubview(footerView)
         view.addSubview(tableView)

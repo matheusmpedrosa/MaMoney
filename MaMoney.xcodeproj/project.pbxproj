@@ -7,22 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		805DFF8D23F08CB30080284C /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFF8C23F08CB30080284C /* UIView+Extensions.swift */; };
 		805DFF9023F08CF80080284C /* ViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFF8F23F08CF80080284C /* ViewConfiguration.swift */; };
 		805DFF9423F08DDB0080284C /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFF9323F08DDB0080284C /* UIViewController+Extensions.swift */; };
-		805DFF9723F08E850080284C /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFF9623F08E850080284C /* MenuTableViewController.swift */; };
-		805DFF9923F08F170080284C /* SheetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFF9823F08F170080284C /* SheetTableViewController.swift */; };
-		805DFF9B23F08F240080284C /* NewSheetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFF9A23F08F240080284C /* NewSheetTableViewController.swift */; };
-		805DFF9E23F091330080284C /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFF9D23F091330080284C /* Sheet.swift */; };
-		805DFFA223F092740080284C /* SheetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFFA123F092740080284C /* SheetItem.swift */; };
+		805DFF9723F08E850080284C /* TablesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFF9623F08E850080284C /* TablesViewController.swift */; };
+		805DFF9923F08F170080284C /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFF9823F08F170080284C /* ItemsViewController.swift */; };
+		805DFF9B23F08F240080284C /* NewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFF9A23F08F240080284C /* NewTableViewController.swift */; };
+		805DFF9E23F091330080284C /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFF9D23F091330080284C /* Table.swift */; };
+		805DFFA223F092740080284C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFFA123F092740080284C /* Item.swift */; };
 		805DFFA523F095260080284C /* SheetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFFA423F095260080284C /* SheetType.swift */; };
 		805DFFA723F096940080284C /* PaymentStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFFA623F096940080284C /* PaymentStatus.swift */; };
-		805DFFAA23F0ABFF0080284C /* SheetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFFA923F0ABFF0080284C /* SheetTableViewCell.swift */; };
+		805DFFAA23F0ABFF0080284C /* TableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFFA923F0ABFF0080284C /* TableTableViewCell.swift */; };
 		805DFFAC23F0B3FB0080284C /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFFAB23F0B3FB0080284C /* UIColor+Extensions.swift */; };
 		805DFFAE23F0B8390080284C /* Decimal+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFFAD23F0B8390080284C /* Decimal+Extensions.swift */; };
-		805DFFB023F0CF320080284C /* SheetItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFFAF23F0CF320080284C /* SheetItemsTableViewCell.swift */; };
 		805DFFB323F0D3950080284C /* TotalAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFFB223F0D3950080284C /* TotalAmountView.swift */; };
 		805DFFB523F0E7830080284C /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFFB423F0E7830080284C /* UIDevice+Extensions.swift */; };
+		8087782C23FEE77500D8B9EB /* SheetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087782B23FEE77500D8B9EB /* SheetsViewController.swift */; };
+		8087782E23FEEA9A00D8B9EB /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087782D23FEEA9A00D8B9EB /* Sheet.swift */; };
+		8087783223FF18A300D8B9EB /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087783123FF18A300D8B9EB /* ItemTableViewCell.swift */; };
+		8087783423FF1B5E00D8B9EB /* SheetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087783323FF1B5E00D8B9EB /* SheetTableViewCell.swift */; };
 		808B4A4A23F0822B0032147F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808B4A4923F0822B0032147F /* AppDelegate.swift */; };
 		808B4A4C23F0822B0032147F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808B4A4B23F0822B0032147F /* SceneDelegate.swift */; };
 		808B4A5323F082320032147F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 808B4A5223F082320032147F /* Assets.xcassets */; };
@@ -30,22 +32,24 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		805DFF8C23F08CB30080284C /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		805DFF8F23F08CF80080284C /* ViewConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConfiguration.swift; sourceTree = "<group>"; };
 		805DFF9323F08DDB0080284C /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
-		805DFF9623F08E850080284C /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
-		805DFF9823F08F170080284C /* SheetTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetTableViewController.swift; sourceTree = "<group>"; };
-		805DFF9A23F08F240080284C /* NewSheetTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSheetTableViewController.swift; sourceTree = "<group>"; };
-		805DFF9D23F091330080284C /* Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
-		805DFFA123F092740080284C /* SheetItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetItem.swift; sourceTree = "<group>"; };
+		805DFF9623F08E850080284C /* TablesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablesViewController.swift; sourceTree = "<group>"; };
+		805DFF9823F08F170080284C /* ItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
+		805DFF9A23F08F240080284C /* NewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTableViewController.swift; sourceTree = "<group>"; };
+		805DFF9D23F091330080284C /* Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
+		805DFFA123F092740080284C /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		805DFFA423F095260080284C /* SheetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetType.swift; sourceTree = "<group>"; };
 		805DFFA623F096940080284C /* PaymentStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentStatus.swift; sourceTree = "<group>"; };
-		805DFFA923F0ABFF0080284C /* SheetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetTableViewCell.swift; sourceTree = "<group>"; };
+		805DFFA923F0ABFF0080284C /* TableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableTableViewCell.swift; sourceTree = "<group>"; };
 		805DFFAB23F0B3FB0080284C /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		805DFFAD23F0B8390080284C /* Decimal+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decimal+Extensions.swift"; sourceTree = "<group>"; };
-		805DFFAF23F0CF320080284C /* SheetItemsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetItemsTableViewCell.swift; sourceTree = "<group>"; };
 		805DFFB223F0D3950080284C /* TotalAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalAmountView.swift; sourceTree = "<group>"; };
 		805DFFB423F0E7830080284C /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
+		8087782B23FEE77500D8B9EB /* SheetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetsViewController.swift; sourceTree = "<group>"; };
+		8087782D23FEEA9A00D8B9EB /* Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
+		8087783123FF18A300D8B9EB /* ItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
+		8087783323FF1B5E00D8B9EB /* SheetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetTableViewCell.swift; sourceTree = "<group>"; };
 		808B4A4623F0822B0032147F /* MaMoney.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MaMoney.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		808B4A4923F0822B0032147F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		808B4A4B23F0822B0032147F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,7 +72,6 @@
 		805DFF8B23F08C9A0080284C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				805DFF8C23F08CB30080284C /* UIView+Extensions.swift */,
 				805DFF9323F08DDB0080284C /* UIViewController+Extensions.swift */,
 				805DFFAB23F0B3FB0080284C /* UIColor+Extensions.swift */,
 				805DFFAD23F0B8390080284C /* Decimal+Extensions.swift */,
@@ -88,9 +91,10 @@
 		805DFF9523F08E3B0080284C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				805DFF9623F08E850080284C /* MenuTableViewController.swift */,
-				805DFF9823F08F170080284C /* SheetTableViewController.swift */,
-				805DFF9A23F08F240080284C /* NewSheetTableViewController.swift */,
+				8087782B23FEE77500D8B9EB /* SheetsViewController.swift */,
+				805DFF9623F08E850080284C /* TablesViewController.swift */,
+				805DFF9823F08F170080284C /* ItemsViewController.swift */,
+				805DFF9A23F08F240080284C /* NewTableViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -98,8 +102,9 @@
 		805DFF9C23F090C10080284C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				805DFF9D23F091330080284C /* Sheet.swift */,
-				805DFFA123F092740080284C /* SheetItem.swift */,
+				8087782D23FEEA9A00D8B9EB /* Sheet.swift */,
+				805DFF9D23F091330080284C /* Table.swift */,
+				805DFFA123F092740080284C /* Item.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -116,8 +121,9 @@
 		805DFFA823F0ABD20080284C /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				805DFFA923F0ABFF0080284C /* SheetTableViewCell.swift */,
-				805DFFAF23F0CF320080284C /* SheetItemsTableViewCell.swift */,
+				8087783323FF1B5E00D8B9EB /* SheetTableViewCell.swift */,
+				805DFFA923F0ABFF0080284C /* TableTableViewCell.swift */,
+				8087783123FF18A300D8B9EB /* ItemTableViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -252,20 +258,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				805DFFA723F096940080284C /* PaymentStatus.swift in Sources */,
-				805DFFA223F092740080284C /* SheetItem.swift in Sources */,
+				805DFFA223F092740080284C /* Item.swift in Sources */,
 				805DFFA523F095260080284C /* SheetType.swift in Sources */,
-				805DFF9923F08F170080284C /* SheetTableViewController.swift in Sources */,
+				8087783423FF1B5E00D8B9EB /* SheetTableViewCell.swift in Sources */,
+				805DFF9923F08F170080284C /* ItemsViewController.swift in Sources */,
+				8087783223FF18A300D8B9EB /* ItemTableViewCell.swift in Sources */,
 				808B4A4A23F0822B0032147F /* AppDelegate.swift in Sources */,
-				805DFF9B23F08F240080284C /* NewSheetTableViewController.swift in Sources */,
-				805DFFB023F0CF320080284C /* SheetItemsTableViewCell.swift in Sources */,
-				805DFF9E23F091330080284C /* Sheet.swift in Sources */,
-				805DFF8D23F08CB30080284C /* UIView+Extensions.swift in Sources */,
-				805DFF9723F08E850080284C /* MenuTableViewController.swift in Sources */,
+				805DFF9B23F08F240080284C /* NewTableViewController.swift in Sources */,
+				805DFF9E23F091330080284C /* Table.swift in Sources */,
+				805DFF9723F08E850080284C /* TablesViewController.swift in Sources */,
 				805DFFB323F0D3950080284C /* TotalAmountView.swift in Sources */,
+				8087782E23FEEA9A00D8B9EB /* Sheet.swift in Sources */,
+				8087782C23FEE77500D8B9EB /* SheetsViewController.swift in Sources */,
 				805DFFAE23F0B8390080284C /* Decimal+Extensions.swift in Sources */,
 				808B4A4C23F0822B0032147F /* SceneDelegate.swift in Sources */,
 				805DFFB523F0E7830080284C /* UIDevice+Extensions.swift in Sources */,
-				805DFFAA23F0ABFF0080284C /* SheetTableViewCell.swift in Sources */,
+				805DFFAA23F0ABFF0080284C /* TableTableViewCell.swift in Sources */,
 				805DFFAC23F0B3FB0080284C /* UIColor+Extensions.swift in Sources */,
 				805DFF9423F08DDB0080284C /* UIViewController+Extensions.swift in Sources */,
 				805DFF9023F08CF80080284C /* ViewConfiguration.swift in Sources */,

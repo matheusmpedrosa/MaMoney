@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum SheetType {
+enum TableType {
     case moneyIn
     case moneyOut
     case leftOver

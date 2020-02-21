@@ -1,40 +1,34 @@
 //
-//  MenuTableViewController.swift
+//  SheetsViewController.swift
 //  MaMoney
 //
-//  Created by Matheus Pedrosa on 09/02/20.
+//  Created by Matheus Pedrosa on 20/02/20.
 //  Copyright © 2020 Matheus Pedrosa. All rights reserved.
 //
 
 import UIKit
 
-class MenuTableViewController: UITableViewController {
-    
-    var viewTitle: String
+class SheetsViewController: UITableViewController {
 
-    var sheets: [Sheet] = [
-        Sheet().getMoneyInSheetMock(),
-        Sheet().getMoneyOutSheetMock(),
-        Sheet().getLeftOverSheetMock(),
-        Sheet().getRegularExpensesSheetMock()
-    ]
+    private var viewTitle: String
+    private var sheets: [Sheet]
     
-    init(viewTitle: String) {
+    init(viewTitle: String, sheets: [Sheet]) {
         self.viewTitle = viewTitle
+        self.sheets = sheets
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
         setupViewUI()
         registerCell()
     }
-    
-    
     
     private func setupViewUI() {
         self.title = viewTitle
@@ -43,7 +37,7 @@ class MenuTableViewController: UITableViewController {
     }
     
     private func registerCell() {
-        tableView.register(SheetTableViewCell.self, forCellReuseIdentifier: "sheetCell")
+        tableView.register(SheetTableViewCell.self, forCellReuseIdentifier: String(describing: SheetTableViewCell.self))
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -55,8 +49,9 @@ class MenuTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "sheetCell", for: indexPath) as? SheetTableViewCell else {
-            fatalError("Could not dequeue SheetTableViewCell.")
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SheetTableViewCell.self),
+                                                       for: indexPath) as? SheetTableViewCell else {
+            fatalError("Could not dequeue TableTableViewCell.")
         }
         cell.setup(sheet: sheets[indexPath.row])
         return cell
@@ -64,7 +59,8 @@ class MenuTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let sheet = sheets[indexPath.row]
-        let sheetTableViewController = SheetTableViewController(sheet: sheet)
-        navigationController?.pushViewController(sheetTableViewController, animated: true)
+        let itemsViewController = TablesViewController(viewTitle: sheet.title, tables: sheet.tables)
+        navigationController?.pushViewController(itemsViewController, animated: true)
     }
+
 }
