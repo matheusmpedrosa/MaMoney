@@ -77,8 +77,12 @@ class TotalAmountView: UIView {
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        let accessibilityCategory = traitCollection.preferredContentSizeCategory.isAccessibilityCategory
-        if accessibilityCategory != previousTraitCollection?.preferredContentSizeCategory.isAccessibilityCategory {
+        let accessibilityCategory = traitCollection
+                                    .preferredContentSizeCategory
+                                    .isAccessibilityCategory
+        if accessibilityCategory != previousTraitCollection?
+                                    .preferredContentSizeCategory
+                                    .isAccessibilityCategory {
             updateLayoutConstraints()
         }
     }
@@ -110,10 +114,12 @@ extension TotalAmountView: ViewConfiguration {
             backgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             backgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             
-            accessibilityContainer.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 8),
-            accessibilityContainer.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 8),
-            accessibilityContainer.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -8),
-//            accessibilityContainer.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -8),
+            accessibilityContainer.topAnchor.constraint(equalTo: backgroundView.topAnchor,
+                                                        constant: 8),
+            accessibilityContainer.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor,
+                                                            constant: 8),
+            accessibilityContainer.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor,
+                                                             constant: -8),
 
             separatorView.topAnchor.constraint(equalTo: backgroundView.topAnchor),
             separatorView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
@@ -122,28 +128,44 @@ extension TotalAmountView: ViewConfiguration {
         ]
         
         regularConstraints = [
-            title.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: verticalAnchorConstraint),
-            title.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: horizontalAnchorConstraint),
-            title.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: bottonAnchor),
+            title.topAnchor.constraint(equalTo: backgroundView.topAnchor,
+                                       constant: verticalAnchorConstraint),
+            title.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor,
+                                           constant: horizontalAnchorConstraint),
+            title.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor,
+                                          constant: bottonAnchor),
             
-            accessibilityContainer.heightAnchor.constraint(equalTo: subtitle.heightAnchor, constant: 15),
+            accessibilityContainer.heightAnchor.constraint(equalTo: subtitle.heightAnchor,
+                                                           constant: 15),
             
-            subtitle.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: verticalAnchorConstraint),
-            subtitle.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -horizontalAnchorConstraint),
-            subtitle.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: bottonAnchor),
+            subtitle.topAnchor.constraint(equalTo: backgroundView.topAnchor,
+                                          constant: verticalAnchorConstraint),
+            subtitle.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor,
+                                               constant: -horizontalAnchorConstraint),
+            subtitle.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor,
+                                             constant: bottonAnchor),
         ]
         
         largeTextConstraints = [
-            title.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: verticalAnchorConstraint),
-            title.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: horizontalAnchorConstraint),
-            title.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -horizontalAnchorConstraint),
+            title.topAnchor.constraint(equalTo: backgroundView.topAnchor,
+                                       constant: verticalAnchorConstraint),
+            title.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor,
+                                           constant: horizontalAnchorConstraint),
+            title.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor,
+                                            constant: -horizontalAnchorConstraint),
             
-            accessibilityContainer.heightAnchor.constraint(equalTo: subtitle.heightAnchor, multiplier: 2.0, constant: 15),
+            accessibilityContainer.heightAnchor.constraint(equalTo: subtitle.heightAnchor,
+                                                           multiplier: 2.0,
+                                                           constant: 15),
             
-            subtitle.firstBaselineAnchor.constraint(equalToSystemSpacingBelow: title.lastBaselineAnchor, multiplier: 1.0),
-            subtitle.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: horizontalAnchorConstraint),
-            subtitle.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -horizontalAnchorConstraint),
-            subtitle.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: bottonAnchor),
+            subtitle.firstBaselineAnchor.constraint(equalToSystemSpacingBelow: title.lastBaselineAnchor,
+                                                    multiplier: 1.0),
+            subtitle.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor,
+                                              constant: horizontalAnchorConstraint),
+            subtitle.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor,
+                                               constant: -horizontalAnchorConstraint),
+            subtitle.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor,
+                                             constant: bottonAnchor),
         ]
         
         updateLayoutConstraints()

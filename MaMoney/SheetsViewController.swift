@@ -59,8 +59,9 @@ class SheetsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let sheet = sheets[indexPath.row]
-        let itemsViewController = TablesViewController(viewTitle: sheet.title, tables: sheet.tables)
-        navigationController?.pushViewController(itemsViewController, animated: true)
+//        let tablesViewController = TablesViewController(viewTitle: sheet.title, tables: sheet.tables)
+        let tabBarViewController = TabBarViewController(sheet: sheet)
+        navigationController?.pushViewController(tabBarViewController, animated: true)
     }
 
 }

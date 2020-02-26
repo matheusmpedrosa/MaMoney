@@ -24,6 +24,8 @@
 		8087782E23FEEA9A00D8B9EB /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087782D23FEEA9A00D8B9EB /* Sheet.swift */; };
 		8087783223FF18A300D8B9EB /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087783123FF18A300D8B9EB /* ItemTableViewCell.swift */; };
 		8087783423FF1B5E00D8B9EB /* SheetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087783323FF1B5E00D8B9EB /* SheetTableViewCell.swift */; };
+		80877836240178C800D8B9EB /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80877835240178C800D8B9EB /* TabBarViewController.swift */; };
+		80877838240179C300D8B9EB /* GraphsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80877837240179C300D8B9EB /* GraphsViewController.swift */; };
 		808B4A4A23F0822B0032147F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808B4A4923F0822B0032147F /* AppDelegate.swift */; };
 		808B4A4C23F0822B0032147F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808B4A4B23F0822B0032147F /* SceneDelegate.swift */; };
 		808B4A5323F082320032147F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 808B4A5223F082320032147F /* Assets.xcassets */; };
@@ -48,6 +50,8 @@
 		8087782D23FEEA9A00D8B9EB /* Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
 		8087783123FF18A300D8B9EB /* ItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
 		8087783323FF1B5E00D8B9EB /* SheetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetTableViewCell.swift; sourceTree = "<group>"; };
+		80877835240178C800D8B9EB /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		80877837240179C300D8B9EB /* GraphsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphsViewController.swift; sourceTree = "<group>"; };
 		808B4A4623F0822B0032147F /* MaMoney.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MaMoney.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		808B4A4923F0822B0032147F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		808B4A4B23F0822B0032147F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -91,7 +95,9 @@
 			children = (
 				8087782B23FEE77500D8B9EB /* SheetsViewController.swift */,
 				805DFF9623F08E850080284C /* TablesViewController.swift */,
+				80877837240179C300D8B9EB /* GraphsViewController.swift */,
 				805DFF9823F08F170080284C /* ItemsViewController.swift */,
+				80877835240178C800D8B9EB /* TabBarViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -258,10 +264,12 @@
 				805DFFA223F092740080284C /* Item.swift in Sources */,
 				805DFFA523F095260080284C /* SheetType.swift in Sources */,
 				8087783423FF1B5E00D8B9EB /* SheetTableViewCell.swift in Sources */,
+				80877838240179C300D8B9EB /* GraphsViewController.swift in Sources */,
 				805DFF9923F08F170080284C /* ItemsViewController.swift in Sources */,
 				8087783223FF18A300D8B9EB /* ItemTableViewCell.swift in Sources */,
 				808B4A4A23F0822B0032147F /* AppDelegate.swift in Sources */,
 				805DFF9E23F091330080284C /* Table.swift in Sources */,
+				80877836240178C800D8B9EB /* TabBarViewController.swift in Sources */,
 				805DFF9723F08E850080284C /* TablesViewController.swift in Sources */,
 				805DFFB323F0D3950080284C /* TotalAmountView.swift in Sources */,
 				8087782E23FEEA9A00D8B9EB /* Sheet.swift in Sources */,
