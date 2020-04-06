@@ -14,6 +14,7 @@ struct Item {
     var instalments: Int? = 0
     var paymentStatus: PaymentStatus? = .notPayed
     var value: Decimal = 0.0
+    var date: Date = Date()
     
     func getMoneyInItemsMock() -> [Item] {
         var mock: [Item] = []

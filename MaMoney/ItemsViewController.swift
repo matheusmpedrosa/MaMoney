@@ -9,7 +9,9 @@
 import UIKit
 
 public enum HeightConstants: CGFloat {
-    case kNotchHeight = 34.0
+    case kPortraitBottomSafeAreaHeight = 34.0
+    case kPortraitTopSafeAreaHeight = 44.0
+    case kLandscapeBottomSafeAreaHeight = 21.0
     case kFooterViewAccessibilityHeight = 120.0
     case kFooterViewHeight = 40.0
 }
@@ -28,8 +30,6 @@ class ItemsViewController: UIViewController {
     fileprivate var footerView = TotalAmountView(frame: .zero)
     
     fileprivate var commomConstraints: [NSLayoutConstraint] = []
-    fileprivate var regularConstraints: [NSLayoutConstraint] = []
-    fileprivate var largeTextConstraints: [NSLayoutConstraint] = []
     
     init(table: Table) {
         self.viewTitle = table.title
@@ -61,6 +61,7 @@ class ItemsViewController: UIViewController {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.navigationBar.tintColor = table.color
         self.navigationController?.navigationBar.backgroundColor = .systemBackground
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addItem))
         self.tableView.tableFooterView = UIView()
     }
     
@@ -68,14 +69,13 @@ class ItemsViewController: UIViewController {
         tableView.register(ItemTableViewCell.self, forCellReuseIdentifier: String(describing: ItemTableViewCell.self))
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        let accessibilityCategory = traitCollection.preferredContentSizeCategory.isAccessibilityCategory
-        if accessibilityCategory != previousTraitCollection?.preferredContentSizeCategory.isAccessibilityCategory {
-            updateLayoutConstraints()
-        }
+    @objc
+    private func addItem() {
+        let addNewItemViewController = AdddNewItemViewController()
+        addNewItemViewController.modalPresentationStyle = .pageSheet
+        self.present(addNewItemViewController, animated: true, completion: nil)
     }
 }
-
     
 extension ItemsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -119,12 +119,5 @@ extension ItemsViewController: ViewConfiguration {
     
     func updateLayoutConstraints() {
         NSLayoutConstraint.activate(commomConstraints)
-        if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
-            NSLayoutConstraint.deactivate(regularConstraints)
-            NSLayoutConstraint.activate(largeTextConstraints)
-        } else {
-            NSLayoutConstraint.deactivate(largeTextConstraints)
-            NSLayoutConstraint.activate(regularConstraints)
-        }
     }
 }

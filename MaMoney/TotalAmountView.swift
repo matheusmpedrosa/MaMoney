@@ -100,13 +100,12 @@ extension TotalAmountView: ViewConfiguration {
     
     func setupConstraints() {
         var bottonAnchor: CGFloat
-        
+        bottonAnchor = -verticalAnchorConstraint
         
         if UIDevice.current.hasNotch {
-            bottonAnchor = -verticalAnchorConstraint - HeightConstants.kNotchHeight.rawValue
-        } else {
-            bottonAnchor = -verticalAnchorConstraint
+            bottonAnchor -= HeightConstants.kPortraitBottomSafeAreaHeight.rawValue
         }
+        
         
         commomConstraints = [
             backgroundView.topAnchor.constraint(equalTo: self.topAnchor),
