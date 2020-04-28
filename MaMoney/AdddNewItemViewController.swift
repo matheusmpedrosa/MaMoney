@@ -9,10 +9,14 @@
 import UIKit
 
 class AdddNewItemViewController: UIViewController {
+
+    fileprivate var formView = AddNewItemFormView(frame: .zero)
+    
+    fileprivate var commomConstraints: [NSLayoutConstraint] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemBackground
+        self.view = formView
+        hideKeyboardWhenTappedAround()
     }
-
 }

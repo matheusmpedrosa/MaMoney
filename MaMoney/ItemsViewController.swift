@@ -72,9 +72,7 @@ class ItemsViewController: UIViewController {
     @objc
     private func addItem() {
         let addNewItemViewController = AdddNewItemViewController()
-        addNewItemViewController.modalPresentationStyle = .pageSheet
-        self.present(addNewItemViewController, animated: true, completion: nil)
-    }
+        self.present(addNewItemViewController, animated: true, completion: nil)    }
 }
     
 extension ItemsViewController: UITableViewDataSource {

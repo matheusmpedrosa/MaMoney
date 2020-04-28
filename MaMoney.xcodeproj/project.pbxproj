@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8057302324400FFA007C0267 /* InputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8057302224400FFA007C0267 /* InputTextField.swift */; };
 		805DFF9023F08CF80080284C /* ViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFF8F23F08CF80080284C /* ViewConfiguration.swift */; };
 		805DFF9423F08DDB0080284C /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFF9323F08DDB0080284C /* UIViewController+Extensions.swift */; };
 		805DFF9723F08E850080284C /* TablesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFF9623F08E850080284C /* TablesViewController.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8057302224400FFA007C0267 /* InputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextField.swift; sourceTree = "<group>"; };
 		805DFF8F23F08CF80080284C /* ViewConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConfiguration.swift; sourceTree = "<group>"; };
 		805DFF9323F08DDB0080284C /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		805DFF9623F08E850080284C /* TablesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablesViewController.swift; sourceTree = "<group>"; };
@@ -98,6 +100,14 @@
 				807A33842428D0A7006D2971 /* AdddNewItemViewController.swift */,
 			);
 			name = Item;
+			sourceTree = "<group>";
+		};
+		8057301F24400F83007C0267 /* Custom Elements */ = {
+			isa = PBXGroup;
+			children = (
+				8057302224400FFA007C0267 /* InputTextField.swift */,
+			);
+			name = "Custom Elements";
 			sourceTree = "<group>";
 		};
 		805DFF8B23F08C9A0080284C /* Extensions */ = {
@@ -201,6 +211,7 @@
 		808B4A5F23F08BEC0032147F /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				8057301F24400F83007C0267 /* Custom Elements */,
 				808B4A4923F0822B0032147F /* AppDelegate.swift */,
 				808B4A4B23F0822B0032147F /* SceneDelegate.swift */,
 				805DFF8B23F08C9A0080284C /* Extensions */,
@@ -304,6 +315,7 @@
 				805DFF9723F08E850080284C /* TablesViewController.swift in Sources */,
 				807A33852428D0A7006D2971 /* AdddNewItemViewController.swift in Sources */,
 				805DFFB323F0D3950080284C /* TotalAmountView.swift in Sources */,
+				8057302324400FFA007C0267 /* InputTextField.swift in Sources */,
 				8087782E23FEEA9A00D8B9EB /* Sheet.swift in Sources */,
 				8087782C23FEE77500D8B9EB /* SheetsViewController.swift in Sources */,
 				805DFFAE23F0B8390080284C /* Decimal+Extensions.swift in Sources */,
