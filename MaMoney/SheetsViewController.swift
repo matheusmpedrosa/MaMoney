@@ -30,6 +30,11 @@ class SheetsViewController: UITableViewController {
         registerCell()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.navigationBar.tintColor = .systemBlue
+    }
+    
     private func setupViewUI() {
         self.title = viewTitle
         self.navigationController?.navigationBar.prefersLargeTitles = true
