@@ -17,6 +17,15 @@ class AdddNewItemViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view = formView
+        formView.delegate = self
         hideKeyboardWhenTappedAround()
     }
+}
+
+extension AdddNewItemViewController: DidTapSaveButtonProtocol {
+    func didTapSaveButton() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
 }

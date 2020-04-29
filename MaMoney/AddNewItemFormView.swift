@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol DidTapSaveButtonProtocol {
+    func didTapSaveButton()
+}
+
 class AddNewItemFormView: UIView {
     
     fileprivate lazy var backgroundView: UIView = {
@@ -113,19 +117,21 @@ class AddNewItemFormView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 12
         button.backgroundColor = .systemBlue
-        button.setTitle("Save and dismiss", for: .normal)
-        button.titleLabel?.textColor = .systemBackground
+        button.setTitle("Save", for: .normal)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
+        button.addTarget(self, action: #selector(didTapSaveButton), for: .touchUpInside)
         return button
     }()
     
     fileprivate var commomConstraints: [NSLayoutConstraint] = []
     fileprivate var regularConstraints: [NSLayoutConstraint] = []
     fileprivate var largeTextConstraints: [NSLayoutConstraint] = []
-    fileprivate let leadingConstant: CGFloat = 16
-    fileprivate let trailingConstant: CGFloat = -16
+    fileprivate let leadingConstant: CGFloat = 32
+    fileprivate let trailingConstant: CGFloat = -32
     fileprivate let shortVerticalSpace: CGFloat = -4
     fileprivate let longVerticalSpace: CGFloat = -16
+    
+    var delegate: DidTapSaveButtonProtocol?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -136,6 +142,22 @@ class AddNewItemFormView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    @objc
+    func didTapSaveButton() {
+        delegate?.didTapSaveButton()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+           let accessibilityCategory = traitCollection
+                                       .preferredContentSizeCategory
+                                       .isAccessibilityCategory
+           if accessibilityCategory != previousTraitCollection?
+                                       .preferredContentSizeCategory
+                                       .isAccessibilityCategory {
+               updateLayoutConstraints()
+           }
+       }
 }
 
 extension AddNewItemFormView: ViewConfiguration {
@@ -166,7 +188,7 @@ extension AddNewItemFormView: ViewConfiguration {
             backgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             backgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             
-            containerView.topAnchor.constraint(equalTo: headerLabel.topAnchor, constant: longVerticalSpace),
+            containerView.topAnchor.constraint(equalTo: headerLabel.topAnchor, constant: trailingConstant),
             containerView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
             containerView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor),
@@ -185,7 +207,6 @@ extension AddNewItemFormView: ViewConfiguration {
             
             isInstalmentLabel.bottomAnchor.constraint(equalTo: isInstalmentSwitch.topAnchor, constant: shortVerticalSpace),
             isInstalmentLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: leadingConstant),
-            
             
             isInstalmentSwitch.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: leadingConstant),
             
