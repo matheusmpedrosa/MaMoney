@@ -8,8 +8,28 @@
 
 import UIKit
 
-protocol DidTapSaveButtonProtocol {
-    func didTapSaveButton()
+protocol TitleTextFieldDidChangeValueProtocol: AnyObject {
+    func titleTextFieldDidChangeValue(_ title: String)
+}
+
+protocol SwitchDidChangeValueProtocol: AnyObject {
+    func switchDidChangeValue(_ isOn: Bool)
+}
+
+protocol StepperDidChangeValueProtocol: AnyObject {
+    func stepperDidChangeValue(_ count: Double)
+}
+
+protocol ValueTextFieldDidChangeValueProtocol: AnyObject {
+    func ValueTextFieldDidChangeValue(_ value: Decimal)
+}
+
+protocol DateTextFieldDidChangeValueProtocol: AnyObject {
+    func dateTextFieldDidChangeValue(_ date: Date)
+}
+
+protocol SaveButtonWasTappedProtocol: AnyObject {
+    func saveButtonWasTapped()
 }
 
 class AddNewItemFormView: UIView {
@@ -61,6 +81,7 @@ class AddNewItemFormView: UIView {
     fileprivate lazy var isInstalmentSwitch: UISwitch = {
         let `switch` = UISwitch(frame: .zero)
         `switch`.translatesAutoresizingMaskIntoConstraints = false
+        `switch`.addTarget(self, action: #selector(switchDidChangeValue), for: .valueChanged)
         return `switch`
     }()
     
@@ -78,6 +99,8 @@ class AddNewItemFormView: UIView {
     fileprivate lazy var numberOfInstalmentsStepper: UIStepper = {
         let stepper = UIStepper(frame: .zero)
         stepper.translatesAutoresizingMaskIntoConstraints = false
+        stepper.value = 0
+        stepper.addTarget(self, action: #selector(stepperDidChangeValue), for: .valueChanged)
         return stepper
     }()
     
@@ -99,7 +122,7 @@ class AddNewItemFormView: UIView {
         return label
     }()
     
-    fileprivate lazy var valueTextField = InputTextField()
+    fileprivate lazy var valueTextField = InputTextField(keyboardType: .decimalPad)
     
     fileprivate lazy var dateLabel: UILabel = {
         let label = UILabel(frame: .zero)
@@ -110,16 +133,28 @@ class AddNewItemFormView: UIView {
         return label
     }()
     
-    fileprivate lazy var dateTextField = InputTextField()
+    
+    fileprivate lazy var dateTextField: UITextField = {
+        let textField = UITextField(frame: .zero)
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.backgroundColor = .tertiarySystemBackground
+        textField.textAlignment = .left
+        textField.borderStyle = .roundedRect
+        textField.inputView = datePicker
+        return textField
+    }()
     
     fileprivate lazy var saveButton: UIButton = {
-        let button = UIButton(frame: .zero)
+        let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 12
         button.backgroundColor = .systemBlue
         button.setTitle("Save", for: .normal)
+        button.setTitle("Save", for: .disabled)
+        button.setTitleColor(.white, for: .disabled)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
-        button.addTarget(self, action: #selector(didTapSaveButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(saveButtonWasTapped), for: .touchUpInside)
+        button.isEnabled = false
         return button
     }()
     
@@ -131,11 +166,37 @@ class AddNewItemFormView: UIView {
     fileprivate let shortVerticalSpace: CGFloat = -4
     fileprivate let longVerticalSpace: CGFloat = -16
     
-    var delegate: DidTapSaveButtonProtocol?
+    weak var titleTextFieldDidChangeValueDelegate: TitleTextFieldDidChangeValueProtocol?
+    weak var switchDidChangeValueDelegate: SwitchDidChangeValueProtocol?
+    weak var stepperDidChangeValueDelegate: StepperDidChangeValueProtocol?
+    weak var valueTextFieldDidChangeValueDelegate: ValueTextFieldDidChangeValueProtocol?
+    weak var dateTextFieldDidChangeValueDelegate: DateTextFieldDidChangeValueProtocol?
+    weak var didTapSaveButtonDelegate: SaveButtonWasTappedProtocol?
+
+    fileprivate var datePicker: UIDatePicker = {
+        let datePicker = UIDatePicker(frame: .zero)
+        datePicker.datePickerMode = .date
+        datePicker.locale = Locale(identifier: "pt-br")
+        return datePicker
+    }()
+    
+    fileprivate var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyy"
+        formatter.locale = Locale(identifier: "pt-br")
+        return formatter
+    }()
+    
+    fileprivate var item = Item(title: "", isInstalment: false, instalments: 0, paymentStatus: .none, value: 0, date: Date())
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
+        hideNumberOfInstalmentsStepper(!isInstalmentSwitch.isOn)
+        titleTextField.delegate = self
+        valueTextField.delegate = self
+        dateTextField.delegate = self
+        valueTextField.addTarget(self, action: #selector(valueTextFieldEditindChanged), for: .editingChanged)
         configureView()
     }
     
@@ -144,8 +205,52 @@ class AddNewItemFormView: UIView {
     }
     
     @objc
-    func didTapSaveButton() {
-        delegate?.didTapSaveButton()
+    func switchDidChangeValue() {
+        switchDidChangeValueDelegate?.switchDidChangeValue(isInstalmentSwitch.isOn)
+        hideNumberOfInstalmentsStepper(!isInstalmentSwitch.isOn)
+    }
+    
+    @objc
+    func stepperDidChangeValue() {
+        stepperDidChangeValueDelegate?.stepperDidChangeValue(numberOfInstalmentsStepper.value)
+        instalmentsCountLabel.text = "\(Int(numberOfInstalmentsStepper.value))"
+    }
+    
+    @objc
+    func saveButtonWasTapped() {
+        didTapSaveButtonDelegate?.saveButtonWasTapped()
+    }
+    
+    @objc
+    fileprivate func valueTextFieldEditindChanged(_ textField: UITextField) {
+        textField.formatTextToCurrency()
+        valueTextFieldDidChangeValueDelegate?.ValueTextFieldDidChangeValue(textField.getDecimalValue())
+    }
+    
+    fileprivate func hideNumberOfInstalmentsStepper(_ hide: Bool) {
+        DispatchQueue.main.async {
+            UIView.transition(with: self.numberOfInstalmentsLabel, duration: 0.6, options: .transitionCrossDissolve, animations: {
+                self.numberOfInstalmentsLabel.isHidden = hide
+            }, completion: nil)
+            UIView.transition(with: self.numberOfInstalmentsStepper, duration: 0.6, options: .transitionCrossDissolve, animations: {
+                self.numberOfInstalmentsStepper.isHidden = hide
+            }, completion: nil)
+            UIView.transition(with: self.instalmentsCountLabel, duration: 0.6, options: .transitionCrossDissolve, animations: {
+                self.instalmentsCountLabel.isHidden = hide
+            }, completion: nil)
+        }
+        
+        if hide {
+            numberOfInstalmentsStepper.value = 0
+            instalmentsCountLabel.text = "0"
+        }
+    }
+    
+    fileprivate func setSelectedDateTo(_ textField: UITextField) {
+        if textField == dateTextField {
+            textField.text = dateFormatter.string(from: datePicker.date)
+            dateTextFieldDidChangeValueDelegate?.dateTextFieldDidChangeValue(datePicker.date)
+        }
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -158,6 +263,20 @@ class AddNewItemFormView: UIView {
                updateLayoutConstraints()
            }
        }
+}
+
+extension AddNewItemFormView: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if titleTextField.text != "" && valueTextField.text != "" && valueTextField.text != "R$ 0,00" {
+            saveButton.isEnabled = true
+        } else {
+            saveButton.isEnabled = false
+        }
+        if textField == titleTextField {
+            titleTextFieldDidChangeValueDelegate?.titleTextFieldDidChangeValue(textField.text ?? "")
+        }
+        setSelectedDateTo(textField)
+    }
 }
 
 extension AddNewItemFormView: ViewConfiguration {
@@ -211,7 +330,7 @@ extension AddNewItemFormView: ViewConfiguration {
             isInstalmentSwitch.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: leadingConstant),
             
             instalmentsCountLabel.centerYAnchor.constraint(equalTo: numberOfInstalmentsStepper.centerYAnchor),
-            instalmentsCountLabel.leadingAnchor.constraint(equalTo: numberOfInstalmentsStepper.trailingAnchor, constant: leadingConstant),
+            instalmentsCountLabel.leadingAnchor.constraint(equalTo: numberOfInstalmentsStepper.trailingAnchor, constant: leadingConstant/2),
             
             valueLabel.bottomAnchor.constraint(equalTo: valueTextField.topAnchor, constant: shortVerticalSpace),
             valueLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: leadingConstant),
@@ -274,6 +393,4 @@ extension AddNewItemFormView: ViewConfiguration {
             NSLayoutConstraint.activate(regularConstraints)
         }
     }
-    
-    
 }

@@ -17,13 +17,49 @@ class AdddNewItemViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view = formView
-        formView.delegate = self
+        formView.titleTextFieldDidChangeValueDelegate = self
+        formView.switchDidChangeValueDelegate = self
+        formView.stepperDidChangeValueDelegate = self
+        formView.valueTextFieldDidChangeValueDelegate = self
+        formView.dateTextFieldDidChangeValueDelegate = self
+        formView.didTapSaveButtonDelegate = self
         hideKeyboardWhenTappedAround()
     }
 }
 
-extension AdddNewItemViewController: DidTapSaveButtonProtocol {
-    func didTapSaveButton() {
+extension AdddNewItemViewController: TitleTextFieldDidChangeValueProtocol {
+    func titleTextFieldDidChangeValue(_ title: String) {
+        print("🦠 titleTextFieldDidChangeValue")
+    }
+}
+
+extension AdddNewItemViewController: SwitchDidChangeValueProtocol {
+    func switchDidChangeValue(_ isOn: Bool) {
+        print("🦠 switchDidChangeValue")
+    }
+}
+
+extension AdddNewItemViewController: StepperDidChangeValueProtocol {
+    func stepperDidChangeValue(_ count: Double) {
+        print("🦠 stepperDidChangeValue")
+    }
+}
+
+extension AdddNewItemViewController: ValueTextFieldDidChangeValueProtocol {
+    func ValueTextFieldDidChangeValue(_ value: Decimal) {
+        print("🦠 ValueTextFieldDidChangeValue")
+    }
+}
+
+extension AdddNewItemViewController: DateTextFieldDidChangeValueProtocol {
+    func dateTextFieldDidChangeValue(_ date: Date) {
+        print("🦠 dateTextFieldDidChangeValue")
+    }
+}
+
+extension AdddNewItemViewController: SaveButtonWasTappedProtocol {
+    func saveButtonWasTapped() {
+        //save Item model
         self.dismiss(animated: true, completion: nil)
     }
     

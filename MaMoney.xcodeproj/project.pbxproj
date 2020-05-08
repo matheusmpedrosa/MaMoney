@@ -21,6 +21,7 @@
 		805DFFAE23F0B8390080284C /* Decimal+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFFAD23F0B8390080284C /* Decimal+Extensions.swift */; };
 		805DFFB323F0D3950080284C /* TotalAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFFB223F0D3950080284C /* TotalAmountView.swift */; };
 		805DFFB523F0E7830080284C /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805DFFB423F0E7830080284C /* UIDevice+Extensions.swift */; };
+		806EB059245BD2EE00FAE0D5 /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806EB058245BD2EE00FAE0D5 /* UITextField+Extensions.swift */; };
 		807A33852428D0A7006D2971 /* AdddNewItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807A33842428D0A7006D2971 /* AdddNewItemViewController.swift */; };
 		807A33872428D2BF006D2971 /* AddNewItemFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807A33862428D2BF006D2971 /* AddNewItemFormView.swift */; };
 		807DBD9C2459C2430013A75A /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 807DBD9B2459C2430013A75A /* IQKeyboardManagerSwift */; };
@@ -51,6 +52,7 @@
 		805DFFAD23F0B8390080284C /* Decimal+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decimal+Extensions.swift"; sourceTree = "<group>"; };
 		805DFFB223F0D3950080284C /* TotalAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalAmountView.swift; sourceTree = "<group>"; };
 		805DFFB423F0E7830080284C /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
+		806EB058245BD2EE00FAE0D5 /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
 		807A33842428D0A7006D2971 /* AdddNewItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdddNewItemViewController.swift; sourceTree = "<group>"; };
 		807A33862428D2BF006D2971 /* AddNewItemFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewItemFormView.swift; sourceTree = "<group>"; };
 		8087782B23FEE77500D8B9EB /* SheetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetsViewController.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				805DFFAB23F0B3FB0080284C /* UIColor+Extensions.swift */,
 				805DFFAD23F0B8390080284C /* Decimal+Extensions.swift */,
 				805DFFB423F0E7830080284C /* UIDevice+Extensions.swift */,
+				806EB058245BD2EE00FAE0D5 /* UITextField+Extensions.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 				805DFFA723F096940080284C /* PaymentStatus.swift in Sources */,
 				807A33872428D2BF006D2971 /* AddNewItemFormView.swift in Sources */,
 				805DFFA223F092740080284C /* Item.swift in Sources */,
+				806EB059245BD2EE00FAE0D5 /* UITextField+Extensions.swift in Sources */,
 				805DFFA523F095260080284C /* SheetType.swift in Sources */,
 				8087783423FF1B5E00D8B9EB /* SheetTableViewCell.swift in Sources */,
 				80877838240179C300D8B9EB /* GraphsViewController.swift in Sources */,

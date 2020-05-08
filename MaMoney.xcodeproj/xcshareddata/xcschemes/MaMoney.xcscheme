@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "808B4A4523F0822B0032147F"
-               BuildableName = "MaMoney.app"
+               BuildableName = "moma.app"
                BlueprintName = "MaMoney"
                ReferencedContainer = "container:MaMoney.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "808B4A4523F0822B0032147F"
-            BuildableName = "MaMoney.app"
+            BuildableName = "moma.app"
             BlueprintName = "MaMoney"
             ReferencedContainer = "container:MaMoney.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "808B4A4523F0822B0032147F"
-            BuildableName = "MaMoney.app"
+            BuildableName = "moma.app"
             BlueprintName = "MaMoney"
             ReferencedContainer = "container:MaMoney.xcodeproj">
          </BuildableReference>

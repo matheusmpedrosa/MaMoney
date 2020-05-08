@@ -16,7 +16,8 @@ class InputTextField: UITextField {
          backgroundColor: UIColor = .tertiarySystemBackground,
          textAlignment: NSTextAlignment = .left,
          borderStyle: BorderStyle = .roundedRect,
-         clearButtonMode: ViewMode = .whileEditing) {
+         clearButtonMode: ViewMode = .whileEditing,
+         keyboardType: UIKeyboardType = .default) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.isAccessibilityElement = true
@@ -26,10 +27,10 @@ class InputTextField: UITextField {
         self.textAlignment = textAlignment
         self.borderStyle = borderStyle
         self.clearButtonMode = clearButtonMode
+        self.keyboardType = keyboardType
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }
