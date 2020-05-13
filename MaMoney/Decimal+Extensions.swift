@@ -17,3 +17,13 @@ extension Decimal {
         return string
     }
 }
+
+extension NSDecimalNumber {
+    func toBrazilianRealString() -> String? {
+        let formatter = NumberFormatter()
+        formatter.locale = Locale(identifier: "pt_BR")
+        formatter.numberStyle = .currency
+        let string = formatter.string(for: self)
+        return string
+    }
+}

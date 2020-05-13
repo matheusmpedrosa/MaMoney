@@ -10,11 +10,9 @@ import UIKit
 
 class TablesViewController: UITableViewController {
     
-    private var viewTitle: String
     private var tables: [Table]
     
-    init(viewTitle: String, tables: [Table]) {
-        self.viewTitle = viewTitle
+    init(tables: [Table]) {
         self.tables = tables
         super.init(nibName: nil, bundle: nil)
     }
@@ -22,6 +20,7 @@ class TablesViewController: UITableViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +34,7 @@ class TablesViewController: UITableViewController {
     }
     
     private func setupViewUI() {
-        self.title = viewTitle
+        
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.tableView.tableFooterView = UIView()
     }
@@ -57,13 +56,19 @@ class TablesViewController: UITableViewController {
                                                        for: indexPath) as? TableTableViewCell else {
             fatalError("Could not dequeue TableTableViewCell.")
         }
-        cell.setup(sheet: tables[indexPath.row])
+        let table = tables[indexPath.row]
+        if table.title != "Reserva do mês" {
+            cell.accessoryType = .disclosureIndicator
+        }
+        cell.setup(table: table)
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let table = tables[indexPath.row]
-        let itemsViewController = ItemsViewController(table: table)
-        navigationController?.pushViewController(itemsViewController, animated: true)
+        if table.title != "Reserva do mês" {
+            let itemsViewController = ItemsViewController(table: table)
+            navigationController?.pushViewController(itemsViewController, animated: true)
+        }
     }
 }

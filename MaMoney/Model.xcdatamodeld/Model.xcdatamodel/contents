@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Item" representedClassName=".Item" syncable="YES">
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="instalments" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="isInstalment" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="title" attributeType="String"/>
+        <attribute name="value" attributeType="Decimal" defaultValueString="0.0"/>
+        <relationship name="ofTable" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Table" inverseName="item" inverseEntity="Table"/>
+    </entity>
+    <entity name="Sheet" representedClassName=".Sheet" syncable="YES">
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title" attributeType="String"/>
+        <relationship name="table" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Table" inverseName="ofSheet" inverseEntity="Table"/>
+    </entity>
+    <entity name="Table" representedClassName=".Table" syncable="YES">
+        <attribute name="color" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+        <attribute name="totalAmount" attributeType="Decimal" defaultValueString="0.0"/>
+        <relationship name="item" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Item" inverseName="ofTable" inverseEntity="Item"/>
+        <relationship name="ofSheet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Sheet" inverseName="table" inverseEntity="Sheet"/>
+    </entity>
+    <elements>
+        <element name="Item" positionX="-36" positionY="45" width="128" height="133"/>
+        <element name="Sheet" positionX="-63" positionY="-18" width="128" height="88"/>
+        <element name="Table" positionX="-54" positionY="9" width="128" height="118"/>
+    </elements>
+</model>

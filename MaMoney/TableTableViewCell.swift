@@ -20,10 +20,10 @@ class TableTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func setup(sheet: Table) {
-        self.textLabel?.text = sheet.title
-        self.detailTextLabel?.text = sheet.totalAmount?.toBrazilianRealString()
-        self.imageView?.image = sheet.color.image(CGSize(width: edge, height: edge))
+    public func setup(table: Table) {
+        self.textLabel?.text = table.title
+        self.detailTextLabel?.text = table.totalAmount.toBrazilianRealString()
+        self.imageView?.image = table.color.colorFromString().image(CGSize(width: edge, height: edge))
         self.imageView?.layer.cornerRadius = edge / 2.0
         self.imageView?.clipsToBounds = true
         self.selectionStyle = .none

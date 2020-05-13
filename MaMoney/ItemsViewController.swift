@@ -25,17 +25,13 @@ class ItemsViewController: UIViewController {
         return tableView
     }()
 
-    fileprivate var viewTitle: String
     fileprivate var table: Table
     fileprivate var footerView = TotalAmountView(frame: .zero)
     
     fileprivate var commomConstraints: [NSLayoutConstraint] = []
     
     init(table: Table) {
-        self.viewTitle = table.title
         self.table = table
-        let total = table.totalAmount?.toBrazilianRealString()
-        self.footerView.setup(total: total)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -52,7 +48,7 @@ class ItemsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        navigationController?.navigationBar.tintColor = table.color
+//        navigationController?.navigationBar.tintColor = table.color
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -61,10 +57,11 @@ class ItemsViewController: UIViewController {
     }
     
     private func setupViewUI() {
-        self.title = viewTitle
+        self.title = table.title
+        self.footerView.setup(total: table.totalAmount.toBrazilianRealString())
         self.view.backgroundColor = .systemBackground
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationController?.navigationBar.tintColor = table.color
+        self.navigationController?.navigationBar.tintColor = table.color.colorFromString()
         self.navigationController?.navigationBar.backgroundColor = .systemBackground
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addItem))
         self.tableView.tableFooterView = UIView()
@@ -86,7 +83,7 @@ extension ItemsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return table.items.count
+        return table.item.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -94,7 +91,8 @@ extension ItemsViewController: UITableViewDataSource {
                                                        for: indexPath) as? ItemTableViewCell else {
             fatalError("Could not dequeue ItemTableViewCell.")
         }
-        cell.setup(item: table.items[indexPath.row])
+        let item = table.item.allObjects[indexPath.row] as! Item
+        cell.setup(item: item)
         return cell
     }
 }

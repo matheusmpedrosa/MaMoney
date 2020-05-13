@@ -7,15 +7,15 @@
 //
 
 import UIKit
+import CoreData
 
 class SheetsViewController: UITableViewController {
 
-    private var viewTitle: String
-    private var sheets: [Sheet]
+    private var sheets: [Sheet] = []
+    private var store: SheetStore
     
-    init(viewTitle: String, sheets: [Sheet]) {
-        self.viewTitle = viewTitle
-        self.sheets = sheets
+    init(store: SheetStore) {
+        self.store = store
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -25,24 +25,43 @@ class SheetsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupViewUI()
         registerCell()
+        fetchSheets()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        navigationController?.navigationBar.tintColor = .systemBlue
     }
     
     private func setupViewUI() {
-        self.title = viewTitle
+        self.title = "Planilhas"
+        self.navigationController?.navigationBar.tintColor = .systemBlue
         self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addItem))
         self.tableView.tableFooterView = UIView()
     }
     
     private func registerCell() {
         tableView.register(SheetTableViewCell.self, forCellReuseIdentifier: String(describing: SheetTableViewCell.self))
+    }
+    
+    private func fetchSheets() {
+        store.fetchAll { [weak self] (sheets) in
+            if let sheets = sheets {
+                self?.sheets = sheets
+            } else {
+                //show empty state
+                self?.sheets = []
+            }
+            self?.tableView.reloadData()
+        }
+    }
+    
+    @objc
+    private func addItem() {
+        store.insert()
+        fetchSheets()
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -67,5 +86,12 @@ class SheetsViewController: UITableViewController {
         let tabBarViewController = TabBarViewController(sheet: sheet)
         navigationController?.pushViewController(tabBarViewController, animated: true)
     }
-
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            store.delete(sheet: sheets[indexPath.row])
+            sheets.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .left)
+        }
+    }
 }

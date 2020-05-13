@@ -23,20 +23,22 @@ class TabBarViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.delegate = self
+        self.title = sheet.title
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        
-        self.title = sheet.title
-        
-        let tablesViewController = TablesViewController(viewTitle: sheet.title, tables: sheet.tables)
-        let tablesTabBarItem = UITabBarItem(title: "Tables", image: #imageLiteral(resourceName: "list"), selectedImage: #imageLiteral(resourceName: "list"))
+        setTabBarItems()
+    }
+    
+    private func setTabBarItems() {
+        guard let tables = sheet.table.allObjects as? [Table] else { return }
+        let tablesViewController = TablesViewController(tables: tables)
+        let tablesTabBarItem = UITabBarItem(title: "Tabelas", image: #imageLiteral(resourceName: "list"), selectedImage: #imageLiteral(resourceName: "list"))
         tablesViewController.tabBarItem = tablesTabBarItem
         
         let graphsViewController = GraphsViewController()
-        let graphsTabBarItem = UITabBarItem(title: "Graphs", image: #imageLiteral(resourceName: "chart"), selectedImage: #imageLiteral(resourceName: "chart"))
+        let graphsTabBarItem = UITabBarItem(title: "Gráficos", image: #imageLiteral(resourceName: "chart"), selectedImage: #imageLiteral(resourceName: "chart"))
         graphsViewController.tabBarItem = graphsTabBarItem
         
         self.viewControllers = [tablesViewController, graphsViewController]
