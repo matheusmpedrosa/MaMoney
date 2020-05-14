@@ -27,6 +27,15 @@ class SheetStore {
     }
     
     func insert() {
+        let newSheet = Sheet(context: context)
+        newSheet.title = "Nova planilha"
+        newSheet.date = Date()
+        newSheet.table = NSSet.init(array: [])
+        
+        Sheet.insertSheet(from: context)
+    }
+    
+    func insertSampleSheet() {
         //expense table
         let sampleExpenseItem1 = Item(context: context)
         sampleExpenseItem1.title = "Mesa de jantar"
@@ -70,7 +79,7 @@ class SheetStore {
         sampleLeftOverTable.item = NSSet.init(array: [])
         
         let newSheet = Sheet(context: context)
-        newSheet.title = "Nova planilha"
+        newSheet.title = "Planilha exemplo"
         newSheet.date = Date()
         newSheet.table = NSSet.init(array: [sampleIncomesTable, sampleExpensesTable, sampleLeftOverTable])
         

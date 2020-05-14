@@ -34,11 +34,11 @@ class TabBarViewController: UITabBarController {
     private func setTabBarItems() {
         guard let tables = sheet.table.allObjects as? [Table] else { return }
         let tablesViewController = TablesViewController(tables: tables)
-        let tablesTabBarItem = UITabBarItem(title: "Tabelas", image: #imageLiteral(resourceName: "list"), selectedImage: #imageLiteral(resourceName: "list"))
+        let tablesTabBarItem = UITabBarItem(title: "Tabelas", image: #imageLiteral(resourceName: "icn-list"), selectedImage: #imageLiteral(resourceName: "icn-list"))
         tablesViewController.tabBarItem = tablesTabBarItem
         
         let graphsViewController = GraphsViewController()
-        let graphsTabBarItem = UITabBarItem(title: "Gráficos", image: #imageLiteral(resourceName: "chart"), selectedImage: #imageLiteral(resourceName: "chart"))
+        let graphsTabBarItem = UITabBarItem(title: "Gráficos", image: #imageLiteral(resourceName: "icn-chart"), selectedImage: #imageLiteral(resourceName: "icn-chart"))
         graphsViewController.tabBarItem = graphsTabBarItem
         
         self.viewControllers = [tablesViewController, graphsViewController]

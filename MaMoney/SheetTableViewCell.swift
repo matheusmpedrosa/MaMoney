@@ -23,6 +23,7 @@ class SheetTableViewCell: UITableViewCell {
         self.textLabel?.numberOfLines = 0
         self.textLabel?.lineBreakMode = .byWordWrapping
         self.selectionStyle = .none
+        self.accessoryType = .disclosureIndicator
     }
 
 }

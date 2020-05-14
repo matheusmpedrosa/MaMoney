@@ -48,19 +48,18 @@ class ItemsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-//        navigationController?.navigationBar.tintColor = table.color
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        navigationController?.navigationBar.tintColor = .systemBlue
+        self.navigationController?.navigationBar.tintColor = .systemBlue
+        self.navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func setupViewUI() {
         self.title = table.title
-        self.footerView.setup(total: table.totalAmount.toBrazilianRealString())
+        self.footerView.setup(total: computeTotalAmount().toBrazilianRealString())
         self.view.backgroundColor = .systemBackground
-        self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.navigationBar.tintColor = table.color.colorFromString()
         self.navigationController?.navigationBar.backgroundColor = .systemBackground
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addItem))
@@ -69,6 +68,15 @@ class ItemsViewController: UIViewController {
     
     private func registerCell() {
         tableView.register(ItemTableViewCell.self, forCellReuseIdentifier: String(describing: ItemTableViewCell.self))
+    }
+    
+    private func computeTotalAmount() -> Decimal {
+        var amount: Decimal = 0.0
+        let items = table.item.allObjects as? [Item]
+        for item in items! {
+            amount += item.value.decimalValue
+        }
+        return amount
     }
     
     @objc

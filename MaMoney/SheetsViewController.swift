@@ -9,10 +9,21 @@
 import UIKit
 import CoreData
 
-class SheetsViewController: UITableViewController {
+class SheetsViewController: UIViewController {
+    
+    fileprivate lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.dataSource = self
+        tableView.delegate = self
+        return tableView
+    }()
 
-    private var sheets: [Sheet] = []
-    private var store: SheetStore
+    fileprivate var sheets: [Sheet] = []
+    fileprivate var store: SheetStore
+    fileprivate var emptyStateView = EmptyStateView(frame: .zero)
+    
+    fileprivate var commomConstraints: [NSLayoutConstraint] = []
     
     init(store: SheetStore) {
         self.store = store
@@ -25,21 +36,36 @@ class SheetsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        checkForFirstLaunch()
         setupViewUI()
         registerCell()
-        fetchSheets()
+        configureView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        self.navigationItem.largeTitleDisplayMode = .always
     }
     
     private func setupViewUI() {
         self.title = "Planilhas"
+        self.view.backgroundColor = .systemBackground
         self.navigationController?.navigationBar.tintColor = .systemBlue
         self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationBar.backgroundColor = .systemBackground
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addItem))
+        self.emptyStateView.setup(type: .sheet, delegate: self)
         self.tableView.tableFooterView = UIView()
+    }
+    
+    private func checkForFirstLaunch() {
+        let firstLaunch = FirstLaunch(userDefaults: .standard, key: "FirstLaunch")
+        if firstLaunch.isFirstLaunch {
+            store.insertSampleSheet()
+            fetchSheets()
+        } else {
+            fetchSheets()
+        }
     }
     
     private func registerCell() {
@@ -51,10 +77,19 @@ class SheetsViewController: UITableViewController {
             if let sheets = sheets {
                 self?.sheets = sheets
             } else {
-                //show empty state
                 self?.sheets = []
             }
             self?.tableView.reloadData()
+        }
+        
+        if self.sheets.isEmpty {
+            UIView.transition(with: emptyStateView, duration: 0.3, options: .curveEaseInOut, animations: {
+                self.emptyStateView.alpha = 1
+            }, completion: nil)
+        } else {
+            UIView.transition(with: emptyStateView, duration: 0.3, options: .curveEaseInOut, animations: {
+                self.emptyStateView.alpha = 0
+            }, completion: nil)
         }
     }
     
@@ -64,15 +99,18 @@ class SheetsViewController: UITableViewController {
         fetchSheets()
     }
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+}
+
+extension SheetsViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sheets.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SheetTableViewCell.self),
                                                        for: indexPath) as? SheetTableViewCell else {
             fatalError("Could not dequeue TableTableViewCell.")
@@ -81,17 +119,57 @@ class SheetsViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let sheet = sheets[indexPath.row]
-        let tabBarViewController = TabBarViewController(sheet: sheet)
-        navigationController?.pushViewController(tabBarViewController, animated: true)
-    }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             store.delete(sheet: sheets[indexPath.row])
             sheets.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .left)
+            fetchSheets()
         }
+    }
+
+}
+
+extension SheetsViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let sheet = sheets[indexPath.row]
+        let tabBarViewController = TabBarViewController(sheet: sheet)
+        navigationController?.pushViewController(tabBarViewController, animated: true)
+    }
+
+}
+
+extension SheetsViewController: AddButtonWasTappedProtocol {
+    func addButtonWasTapped() {
+        store.insert()
+    }
+}
+
+extension SheetsViewController: ViewConfiguration {
+    func buildViewHierarchy() {
+        view.addSubview(tableView)
+        view.addSubview(emptyStateView)
+    }
+    
+    func setupConstraints() {
+        commomConstraints = [
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.bottomAnchor),
+            
+            emptyStateView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            emptyStateView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            emptyStateView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            emptyStateView.bottomAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.bottomAnchor)
+        ]
+        
+        updateLayoutConstraints()
+    }
+    
+    func updateLayoutConstraints() {
+        NSLayoutConstraint.activate(commomConstraints)
     }
 }

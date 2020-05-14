@@ -27,6 +27,9 @@ class TableTableViewCell: UITableViewCell {
         self.imageView?.layer.cornerRadius = edge / 2.0
         self.imageView?.clipsToBounds = true
         self.selectionStyle = .none
+        if table.title != "Reserva do mês" {
+            self.accessoryType = .disclosureIndicator
+        }
     }
 
 }

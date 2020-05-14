@@ -187,8 +187,6 @@ class AddNewItemFormView: UIView {
         return formatter
     }()
     
-//    fileprivate var item = Item(title: "", isInstalment: false, instalments: 0, paymentStatus: .none, value: 0, date: Date())
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
