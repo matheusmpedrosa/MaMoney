@@ -13,6 +13,12 @@ class GraphsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Graphs"
+        setupViewUI()
+    }
+    
+    private func setupViewUI() {
+        self.view.backgroundColor = .systemBackground
+        self.navigationController?.navigationBar.backgroundColor = .systemBackground
     }
     
 

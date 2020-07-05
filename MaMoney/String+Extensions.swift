@@ -11,22 +11,21 @@ import UIKit
 
 extension String {
     func colorFromString() -> UIColor {
-        if self == "green" {
-            return .systemGreen
-        }
+        let colorsDictionary: [String: UIColor] = [
+            "green": .systemGreen,
+            "red": .systemRed,
+            "blue": .systemBlue,
+            "yellow": .systemYellow,
+            "purple": .systemPurple,
+            "teal": .systemTeal,
+            "orange": .systemOrange,
+            "pink": .systemPink,
+            "indigo": .systemIndigo,
+            "gray": .systemGray
+        ]
         
-        if self == "red" {
-            return .systemRed
-        }
+        let color = colorsDictionary.filter { $0.key == self }
         
-        if self == "blue" {
-            return .systemBlue
-        }
-        
-        if self == "yellow" {
-            return .systemYellow
-        }
-        
-        return .systemIndigo
+        return color.first!.value
     }
 }

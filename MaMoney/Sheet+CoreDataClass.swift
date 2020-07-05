@@ -10,15 +10,9 @@
 import Foundation
 import CoreData
 
-protocol SheetRepositoryProcol: AnyObject {
-    static func fetchSheets(from context: NSManagedObjectContext, completion: @escaping ([Sheet]?) -> Void)
-    static func insertSheet(from context: NSManagedObjectContext)
-    static func deleteSheet(from context: NSManagedObjectContext, sheet: Sheet)
-}
-
-public class Sheet: NSManagedObject, SheetRepositoryProcol {
+public class Sheet: NSManagedObject, RepositoryProtocol {
     
-    static func fetchSheets(from context: NSManagedObjectContext, completion: @escaping ([Sheet]?) -> Void) {
+    static func fetchObjects(from context: NSManagedObjectContext, completion: @escaping ([Any]?) -> Void) {
         do {
             let sheets: [Sheet] = try context.fetch(Sheet.fetchRequest())
             completion(sheets)
@@ -27,7 +21,7 @@ public class Sheet: NSManagedObject, SheetRepositoryProcol {
         }
     }
     
-    static func insertSheet(from context: NSManagedObjectContext) {
+    static func insertObject(from context: NSManagedObjectContext) {
         do {
             try context.save()
         } catch let error as NSError {
@@ -35,13 +29,13 @@ public class Sheet: NSManagedObject, SheetRepositoryProcol {
         }
     }
     
-    static func deleteSheet(from context: NSManagedObjectContext, sheet: Sheet) {
+    static func deleteObject(from context: NSManagedObjectContext, object: Any) {
         do {
+            guard let sheet = object as? Sheet else { return }
             context.delete(sheet)
             try context.save()
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
-    
 }

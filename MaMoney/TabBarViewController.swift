@@ -11,9 +11,13 @@ import UIKit
 class TabBarViewController: UITabBarController {
     
     private var sheet: Sheet
+    private var dataManager: TableDataManager
+    private var tablesViewController: TablesViewController?
     
-    init(sheet: Sheet) {
+    
+    init(sheet: Sheet, dataManager: TableDataManager) {
         self.sheet = sheet
+        self.dataManager = dataManager
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -23,30 +27,57 @@ class TabBarViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.delegate = self
         self.title = sheet.title
+        setTabBarItems()
+        appendRightBarButtonItems()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        setTabBarItems()
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewDidAppear(true)
+//    }
+    
+    private func appendRightBarButtonItems() {
+        let addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewTable))
+        let editBarButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editCurrentTable))
+        self.navigationItem.rightBarButtonItems = [addBarButton, editBarButton]
+    }
+    
+    private func removeRightBarButtonItems() {
+        self.navigationItem.rightBarButtonItems = []
+    }
+    
+    @objc
+    private func addNewTable() {
+        let addNewTableViewController = AddNewTableViewController(dataManager: dataManager, dismissDelegate: self.tablesViewController!)
+        self.present(addNewTableViewController, animated: true, completion: nil)
+    }
+    
+    @objc
+    private func editCurrentTable() {
+        //store.edit()
     }
     
     private func setTabBarItems() {
         guard let tables = sheet.table.allObjects as? [Table] else { return }
-        let tablesViewController = TablesViewController(tables: tables)
+        self.tablesViewController = TablesViewController(tables: tables, dataManager: dataManager)
         let tablesTabBarItem = UITabBarItem(title: "Tabelas", image: #imageLiteral(resourceName: "icn-list"), selectedImage: #imageLiteral(resourceName: "icn-list"))
-        tablesViewController.tabBarItem = tablesTabBarItem
+        tablesViewController!.tabBarItem = tablesTabBarItem
         
         let graphsViewController = GraphsViewController()
         let graphsTabBarItem = UITabBarItem(title: "Gráficos", image: #imageLiteral(resourceName: "icn-chart"), selectedImage: #imageLiteral(resourceName: "icn-chart"))
         graphsViewController.tabBarItem = graphsTabBarItem
         
-        self.viewControllers = [tablesViewController, graphsViewController]
+        self.viewControllers = [tablesViewController!, graphsViewController]
     }
 }
 
 extension TabBarViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        print("Selected \(viewController.title!)")
+        if viewController is GraphsViewController {
+            removeRightBarButtonItems()
+        } else {
+            appendRightBarButtonItems()
+        }
     }
 }

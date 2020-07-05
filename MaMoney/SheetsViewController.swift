@@ -20,13 +20,13 @@ class SheetsViewController: UIViewController {
     }()
 
     fileprivate var sheets: [Sheet] = []
-    fileprivate var store: SheetStore
+    fileprivate var dataManager: SheetDataManager
     fileprivate var emptyStateView = EmptyStateView(frame: .zero)
     
     fileprivate var commomConstraints: [NSLayoutConstraint] = []
     
-    init(store: SheetStore) {
-        self.store = store
+    init(dataManager: SheetDataManager) {
+        self.dataManager = dataManager
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -53,7 +53,7 @@ class SheetsViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = .systemBlue
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.navigationBar.backgroundColor = .systemBackground
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addItem))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewSheet))
         self.emptyStateView.setup(type: .sheet, delegate: self)
         self.tableView.tableFooterView = UIView()
     }
@@ -61,7 +61,7 @@ class SheetsViewController: UIViewController {
     private func checkForFirstLaunch() {
         let firstLaunch = FirstLaunch(userDefaults: .standard, key: "FirstLaunch")
         if firstLaunch.isFirstLaunch {
-            store.insertSampleSheet()
+            dataManager.insertSampleSheet()
             fetchSheets()
         } else {
             fetchSheets()
@@ -73,8 +73,8 @@ class SheetsViewController: UIViewController {
     }
     
     private func fetchSheets() {
-        store.fetchAll { [weak self] (sheets) in
-            if let sheets = sheets {
+        dataManager.fetchAll { [weak self] (sheets) in
+            if let sheets = sheets as? [Sheet] {
                 self?.sheets = sheets
             } else {
                 self?.sheets = []
@@ -94,8 +94,8 @@ class SheetsViewController: UIViewController {
     }
     
     @objc
-    private func addItem() {
-        store.insert()
+    private func addNewSheet() {
+        dataManager.insert(object: dataManager.createNewSheet())
         fetchSheets()
     }
 
@@ -122,7 +122,7 @@ extension SheetsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            store.delete(sheet: sheets[indexPath.row])
+            dataManager.delete(object: sheets[indexPath.row])
             sheets.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .left)
             fetchSheets()
@@ -135,7 +135,8 @@ extension SheetsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let sheet = sheets[indexPath.row]
-        let tabBarViewController = TabBarViewController(sheet: sheet)
+        let tableDataManager = TableDataManager(context: dataManager.getContext())
+        let tabBarViewController = TabBarViewController(sheet: sheet, dataManager: tableDataManager)
         navigationController?.pushViewController(tabBarViewController, animated: true)
     }
 
@@ -143,7 +144,8 @@ extension SheetsViewController: UITableViewDelegate {
 
 extension SheetsViewController: AddButtonWasTappedProtocol {
     func addButtonWasTapped() {
-        store.insert()
+        dataManager.insert(object: dataManager.createNewSheet())
+        fetchSheets()
     }
 }
 

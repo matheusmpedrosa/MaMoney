@@ -20,7 +20,7 @@
 		8061FC8C246B2E4700480C0D /* Sheet+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8061FC86246B2E4700480C0D /* Sheet+CoreDataClass.swift */; };
 		8061FC8E246B2E4700480C0D /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8061FC88246B2E4700480C0D /* Item+CoreDataClass.swift */; };
 		8061FC90246B2E4700480C0D /* Table+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8061FC8A246B2E4700480C0D /* Table+CoreDataClass.swift */; };
-		8061FC97246C70EA00480C0D /* SheetStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8061FC96246C70EA00480C0D /* SheetStore.swift */; };
+		8061FC97246C70EA00480C0D /* SheetDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8061FC96246C70EA00480C0D /* SheetDataManager.swift */; };
 		8061FCAF246C9CD100480C0D /* Item+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8061FCAC246C9CD100480C0D /* Item+CoreDataProperties.swift */; };
 		8061FCB0246C9CD100480C0D /* Sheet+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8061FCAD246C9CD100480C0D /* Sheet+CoreDataProperties.swift */; };
 		8061FCB1246C9CD100480C0D /* Table+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8061FCAE246C9CD100480C0D /* Table+CoreDataProperties.swift */; };
@@ -30,6 +30,12 @@
 		807A33852428D0A7006D2971 /* AdddNewItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807A33842428D0A7006D2971 /* AdddNewItemViewController.swift */; };
 		807A33872428D2BF006D2971 /* AddNewItemFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807A33862428D2BF006D2971 /* AddNewItemFormView.swift */; };
 		807DBD9C2459C2430013A75A /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 807DBD9B2459C2430013A75A /* IQKeyboardManagerSwift */; };
+		80803D98246F0C3900DE5AFE /* TableDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80803D97246F0C3900DE5AFE /* TableDataManager.swift */; };
+		80803D9A246F25EE00DE5AFE /* RepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80803D99246F25ED00DE5AFE /* RepositoryProtocol.swift */; };
+		80803D9C246F2BD600DE5AFE /* DataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80803D9B246F2BD600DE5AFE /* DataManagerProtocol.swift */; };
+		80803D9E2472DB6300DE5AFE /* AddNewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80803D9D2472DB6300DE5AFE /* AddNewTableViewController.swift */; };
+		80803DA02472E5F500DE5AFE /* AddNewTableFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80803D9F2472E5F500DE5AFE /* AddNewTableFormView.swift */; };
+		80803DA32472FD4A00DE5AFE /* ColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80803DA22472FD4A00DE5AFE /* ColorButton.swift */; };
 		8087782C23FEE77500D8B9EB /* SheetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087782B23FEE77500D8B9EB /* SheetsViewController.swift */; };
 		8087783223FF18A300D8B9EB /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087783123FF18A300D8B9EB /* ItemTableViewCell.swift */; };
 		8087783423FF1B5E00D8B9EB /* SheetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087783323FF1B5E00D8B9EB /* SheetTableViewCell.swift */; };
@@ -57,7 +63,7 @@
 		8061FC86246B2E4700480C0D /* Sheet+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sheet+CoreDataClass.swift"; sourceTree = "<group>"; };
 		8061FC88246B2E4700480C0D /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataClass.swift"; sourceTree = "<group>"; };
 		8061FC8A246B2E4700480C0D /* Table+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Table+CoreDataClass.swift"; sourceTree = "<group>"; };
-		8061FC96246C70EA00480C0D /* SheetStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetStore.swift; sourceTree = "<group>"; };
+		8061FC96246C70EA00480C0D /* SheetDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetDataManager.swift; sourceTree = "<group>"; };
 		8061FCAC246C9CD100480C0D /* Item+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8061FCAD246C9CD100480C0D /* Sheet+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sheet+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8061FCAE246C9CD100480C0D /* Table+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Table+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -66,6 +72,12 @@
 		806EB058245BD2EE00FAE0D5 /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
 		807A33842428D0A7006D2971 /* AdddNewItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdddNewItemViewController.swift; sourceTree = "<group>"; };
 		807A33862428D2BF006D2971 /* AddNewItemFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewItemFormView.swift; sourceTree = "<group>"; };
+		80803D97246F0C3900DE5AFE /* TableDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableDataManager.swift; sourceTree = "<group>"; };
+		80803D99246F25ED00DE5AFE /* RepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryProtocol.swift; sourceTree = "<group>"; };
+		80803D9B246F2BD600DE5AFE /* DataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerProtocol.swift; sourceTree = "<group>"; };
+		80803D9D2472DB6300DE5AFE /* AddNewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTableViewController.swift; sourceTree = "<group>"; };
+		80803D9F2472E5F500DE5AFE /* AddNewTableFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTableFormView.swift; sourceTree = "<group>"; };
+		80803DA22472FD4A00DE5AFE /* ColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorButton.swift; sourceTree = "<group>"; };
 		8087782B23FEE77500D8B9EB /* SheetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetsViewController.swift; sourceTree = "<group>"; };
 		8087783123FF18A300D8B9EB /* ItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
 		8087783323FF1B5E00D8B9EB /* SheetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetTableViewCell.swift; sourceTree = "<group>"; };
@@ -116,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				805DFF9623F08E850080284C /* TablesViewController.swift */,
+				80803D9D2472DB6300DE5AFE /* AddNewTableViewController.swift */,
 			);
 			name = Table;
 			sourceTree = "<group>";
@@ -133,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				8057302224400FFA007C0267 /* InputTextField.swift */,
+				80803DA22472FD4A00DE5AFE /* ColorButton.swift */,
 			);
 			name = "Custom Elements";
 			sourceTree = "<group>";
@@ -154,6 +168,8 @@
 			isa = PBXGroup;
 			children = (
 				805DFF8F23F08CF80080284C /* ViewConfiguration.swift */,
+				80803D99246F25ED00DE5AFE /* RepositoryProtocol.swift */,
+				80803D9B246F2BD600DE5AFE /* DataManagerProtocol.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -197,7 +213,7 @@
 		805DFFB123F0D3720080284C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				807A33862428D2BF006D2971 /* AddNewItemFormView.swift */,
+				80803DA12472F4CA00DE5AFE /* AddNew */,
 				805DFFB223F0D3950080284C /* TotalAmountView.swift */,
 				808A8FC9246D910A00CFD9DF /* EmptyStateView.swift */,
 			);
@@ -207,9 +223,9 @@
 		8061FC92246B6C6200480C0D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8061FCAC246C9CD100480C0D /* Item+CoreDataProperties.swift */,
 				8061FCAD246C9CD100480C0D /* Sheet+CoreDataProperties.swift */,
 				8061FCAE246C9CD100480C0D /* Table+CoreDataProperties.swift */,
+				8061FCAC246C9CD100480C0D /* Item+CoreDataProperties.swift */,
 				8062BB5C24656A0D004AC0AC /* Model.xcdatamodeld */,
 			);
 			name = Models;
@@ -218,7 +234,7 @@
 		8061FC95246C70CE00480C0D /* Sheet */ = {
 			isa = PBXGroup;
 			children = (
-				8061FC96246C70EA00480C0D /* SheetStore.swift */,
+				8061FC96246C70EA00480C0D /* SheetDataManager.swift */,
 				8061FC86246B2E4700480C0D /* Sheet+CoreDataClass.swift */,
 			);
 			name = Sheet;
@@ -235,9 +251,19 @@
 		8061FCAB246C957F00480C0D /* Table */ = {
 			isa = PBXGroup;
 			children = (
+				80803D97246F0C3900DE5AFE /* TableDataManager.swift */,
 				8061FC8A246B2E4700480C0D /* Table+CoreDataClass.swift */,
 			);
 			name = Table;
+			sourceTree = "<group>";
+		};
+		80803DA12472F4CA00DE5AFE /* AddNew */ = {
+			isa = PBXGroup;
+			children = (
+				807A33862428D2BF006D2971 /* AddNewItemFormView.swift */,
+				80803D9F2472E5F500DE5AFE /* AddNewTableFormView.swift */,
+			);
+			name = AddNew;
 			sourceTree = "<group>";
 		};
 		808A8FC4246D842700CFD9DF /* Utils */ = {
@@ -392,23 +418,29 @@
 				808A8FC6246D844500CFD9DF /* FirstLaunchUtil.swift in Sources */,
 				805DFF9723F08E850080284C /* TablesViewController.swift in Sources */,
 				8061FCB0246C9CD100480C0D /* Sheet+CoreDataProperties.swift in Sources */,
+				80803DA02472E5F500DE5AFE /* AddNewTableFormView.swift in Sources */,
+				80803D98246F0C3900DE5AFE /* TableDataManager.swift in Sources */,
 				807A33852428D0A7006D2971 /* AdddNewItemViewController.swift in Sources */,
 				805DFFB323F0D3950080284C /* TotalAmountView.swift in Sources */,
 				8061FCAF246C9CD100480C0D /* Item+CoreDataProperties.swift in Sources */,
 				8057302324400FFA007C0267 /* InputTextField.swift in Sources */,
+				80803D9C246F2BD600DE5AFE /* DataManagerProtocol.swift in Sources */,
+				80803D9E2472DB6300DE5AFE /* AddNewTableViewController.swift in Sources */,
 				8087782C23FEE77500D8B9EB /* SheetsViewController.swift in Sources */,
 				805DFFAE23F0B8390080284C /* Decimal+Extensions.swift in Sources */,
 				808A8FCA246D910A00CFD9DF /* EmptyStateView.swift in Sources */,
 				8061FC8C246B2E4700480C0D /* Sheet+CoreDataClass.swift in Sources */,
 				808B4A4C23F0822B0032147F /* SceneDelegate.swift in Sources */,
 				805DFFB523F0E7830080284C /* UIDevice+Extensions.swift in Sources */,
+				80803DA32472FD4A00DE5AFE /* ColorButton.swift in Sources */,
 				8061FCB1246C9CD100480C0D /* Table+CoreDataProperties.swift in Sources */,
+				80803D9A246F25EE00DE5AFE /* RepositoryProtocol.swift in Sources */,
 				805DFFAA23F0ABFF0080284C /* TableTableViewCell.swift in Sources */,
 				805DFFAC23F0B3FB0080284C /* UIColor+Extensions.swift in Sources */,
 				805DFF9423F08DDB0080284C /* UIViewController+Extensions.swift in Sources */,
 				805DFF9023F08CF80080284C /* ViewConfiguration.swift in Sources */,
 				8061FCB3246CA72F00480C0D /* String+Extensions.swift in Sources */,
-				8061FC97246C70EA00480C0D /* SheetStore.swift in Sources */,
+				8061FC97246C70EA00480C0D /* SheetDataManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

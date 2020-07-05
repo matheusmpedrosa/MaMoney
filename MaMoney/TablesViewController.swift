@@ -18,12 +18,15 @@ class TablesViewController: UIViewController {
         return tableView
     }()
     
-    private var tables: [Table]
+    fileprivate var tables: [Table]
+    fileprivate var dataManager: TableDataManager
+    fileprivate var emptyStateView = EmptyStateView(frame: .zero)
     
     fileprivate var commomConstraints: [NSLayoutConstraint] = []
     
-    init(tables: [Table]) {
+    init(tables: [Table], dataManager: TableDataManager) {
         self.tables = tables
+        self.dataManager = dataManager
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -31,12 +34,12 @@ class TablesViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewUI()
         registerCell()
         configureView()
+        fetchTables()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,11 +50,46 @@ class TablesViewController: UIViewController {
     private func setupViewUI() {
         self.view.backgroundColor = .systemBackground
         self.navigationController?.navigationBar.backgroundColor = .systemBackground
+        self.emptyStateView.setup(type: .table, delegate: self)
         self.tableView.tableFooterView = UIView()
     }
     
     private func registerCell() {
         tableView.register(TableTableViewCell.self, forCellReuseIdentifier: String(describing: TableTableViewCell.self))
+    }
+    
+    private func fetchTables() {
+        dataManager.fetchAll { [weak self] (tables) in
+            if let tables = tables as? [Table] {
+                self?.tables = tables
+            } else {
+                self?.tables = []
+            }
+            self?.tableView.reloadData()
+        }
+        
+        if self.tables.isEmpty {
+            UIView.transition(with: emptyStateView, duration: 0.3, options: .curveEaseInOut, animations: {
+                self.emptyStateView.alpha = 1
+            }, completion: nil)
+        } else {
+            UIView.transition(with: emptyStateView, duration: 0.3, options: .curveEaseInOut, animations: {
+                self.emptyStateView.alpha = 0
+            }, completion: nil)
+        }
+    }
+}
+
+extension TablesViewController: AddButtonWasTappedProtocol {
+    func addButtonWasTapped() {
+        let addNewTableViewController = AddNewTableViewController(dataManager: dataManager, dismissDelegate: self)
+        self.present(addNewTableViewController, animated: true, completion: nil)
+    }
+}
+
+extension TablesViewController: DidDismissViewControllerDelegate {
+    func didDismissViewController() {
+        fetchTables()
     }
 }
 
@@ -75,6 +113,14 @@ extension TablesViewController: UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            dataManager.delete(object: tables[indexPath.row])
+            tables.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .left)
+            fetchTables()
+        }
+    }
 }
 
 extension TablesViewController: UITableViewDelegate {

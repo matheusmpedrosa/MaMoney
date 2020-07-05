@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TitleTextFieldDidChangeValueProtocol: AnyObject {
-    func titleTextFieldDidChangeValue(_ title: String)
+    func titleTextFieldDidChangeValue(title: String)
 }
 
 protocol SwitchDidChangeValueProtocol: AnyObject {
@@ -52,7 +52,7 @@ class AddNewItemFormView: UIView {
     fileprivate lazy var headerLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Add new item"
+        label.text = "Adicionar nova tabela"
         label.adjustsFontForContentSizeCategory = true
         label.font = UIFont.preferredFont(forTextStyle: .headline)
         return label
@@ -61,7 +61,7 @@ class AddNewItemFormView: UIView {
     fileprivate lazy var titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Title"
+        label.text = "Título"
         label.adjustsFontForContentSizeCategory = true
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         return label
@@ -72,7 +72,7 @@ class AddNewItemFormView: UIView {
     fileprivate lazy var isInstalmentLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Is instalment?"
+        label.text = "É parcelado?"
         label.adjustsFontForContentSizeCategory = true
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         return label
@@ -88,7 +88,7 @@ class AddNewItemFormView: UIView {
     fileprivate lazy var numberOfInstalmentsLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Number of instalments"
+        label.text = "Número de parcelas"
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         label.adjustsFontForContentSizeCategory = true
@@ -116,7 +116,7 @@ class AddNewItemFormView: UIView {
     fileprivate lazy var valueLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Value"
+        label.text = "Preço"
         label.adjustsFontForContentSizeCategory = true
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         return label
@@ -127,7 +127,7 @@ class AddNewItemFormView: UIView {
     fileprivate lazy var dateLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Date"
+        label.text = "Data"
         label.adjustsFontForContentSizeCategory = true
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         return label
@@ -149,8 +149,8 @@ class AddNewItemFormView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 12
         button.backgroundColor = .systemBlue
-        button.setTitle("Save", for: .normal)
-        button.setTitle("Save", for: .disabled)
+        button.setTitle("Salvar", for: .normal)
+        button.setTitle("Salvar", for: .disabled)
         button.setTitleColor(.white, for: .disabled)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.addTarget(self, action: #selector(saveButtonWasTapped), for: .touchUpInside)
@@ -271,7 +271,7 @@ extension AddNewItemFormView: UITextFieldDelegate {
             saveButton.isEnabled = false
         }
         if textField == titleTextField {
-            titleTextFieldDidChangeValueDelegate?.titleTextFieldDidChangeValue(textField.text ?? "")
+            titleTextFieldDidChangeValueDelegate?.titleTextFieldDidChangeValue(title: textField.text ?? "")
         }
         setSelectedDateTo(textField)
     }

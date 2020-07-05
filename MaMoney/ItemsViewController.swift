@@ -62,7 +62,7 @@ class ItemsViewController: UIViewController {
         self.view.backgroundColor = .systemBackground
         self.navigationController?.navigationBar.tintColor = table.color.colorFromString()
         self.navigationController?.navigationBar.backgroundColor = .systemBackground
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addItem))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewItem))
         self.tableView.tableFooterView = UIView()
     }
     
@@ -73,16 +73,19 @@ class ItemsViewController: UIViewController {
     private func computeTotalAmount() -> Decimal {
         var amount: Decimal = 0.0
         let items = table.item.allObjects as? [Item]
-        for item in items! {
-            amount += item.value.decimalValue
+        if let items = items {
+            for item in items {
+                amount += item.value.decimalValue
+            }
         }
         return amount
     }
     
     @objc
-    private func addItem() {
+    private func addNewItem() {
         let addNewItemViewController = AdddNewItemViewController()
-        self.present(addNewItemViewController, animated: true, completion: nil)    }
+        self.present(addNewItemViewController, animated: true, completion: nil)
+    }
 }
     
 extension ItemsViewController: UITableViewDataSource {

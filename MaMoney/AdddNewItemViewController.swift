@@ -12,8 +12,6 @@ class AdddNewItemViewController: UIViewController {
 
     fileprivate var formView = AddNewItemFormView(frame: .zero)
     
-    fileprivate var commomConstraints: [NSLayoutConstraint] = []
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view = formView
@@ -28,7 +26,7 @@ class AdddNewItemViewController: UIViewController {
 }
 
 extension AdddNewItemViewController: TitleTextFieldDidChangeValueProtocol {
-    func titleTextFieldDidChangeValue(_ title: String) {
+    func titleTextFieldDidChangeValue(title: String) {
         print("🦠 titleTextFieldDidChangeValue")
     }
 }

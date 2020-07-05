@@ -1,5 +1,5 @@
 //
-//  SheetStore.swift
+//  SheetDataManager.swift
 //  MaMoney
 //
 //  Created by Matheus Pedrosa on 13/05/20.
@@ -9,16 +9,17 @@
 import Foundation
 import CoreData
 
-class SheetDataManager {
-    private let context: NSManagedObjectContext
+class SheetDataManager: DataManagerProtocol {
     
-    init(context: NSManagedObjectContext) {
+    var context: NSManagedObjectContext
+    
+    required init(context: NSManagedObjectContext) {
         self.context = context
     }
     
-    func fetchAll(completion: @escaping ([Sheet]?) -> Void) {
-        Sheet.fetchSheets(from: context) { (result) in
-            if let result = result {
+    func fetchAll(completion: @escaping ([Any]?) -> Void) {
+        Sheet.fetchObjects(from: context) { (result) in
+            if let result = result as? [Sheet] {
                 completion(result)
             } else {
                 completion(nil)
@@ -26,13 +27,22 @@ class SheetDataManager {
         }
     }
     
-    func insert() {
+    func insert(object: Any) {
+        Sheet.insertObject(from: context)
+    }
+    
+    func delete(object: Any) {
+        Sheet.deleteObject(from: context, object: object)
+    }
+}
+
+extension SheetDataManager {
+    func createNewSheet() -> Sheet {
         let newSheet = Sheet(context: context)
         newSheet.title = "Nova planilha"
         newSheet.date = Date()
         newSheet.table = NSSet.init(array: [])
-        
-        Sheet.insertSheet(from: context)
+        return newSheet
     }
     
     func insertSampleSheet() {
@@ -83,10 +93,6 @@ class SheetDataManager {
         newSheet.date = Date()
         newSheet.table = NSSet.init(array: [sampleIncomesTable, sampleExpensesTable, sampleLeftOverTable])
         
-        Sheet.insertSheet(from: context)
-    }
-    
-    func delete(sheet: Sheet) {
-        Sheet.deleteSheet(from: context, sheet: sheet)
+        Sheet.insertObject(from: context)
     }
 }
