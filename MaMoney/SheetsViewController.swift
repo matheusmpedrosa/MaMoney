@@ -18,6 +18,8 @@ class SheetsViewController: UIViewController {
         tableView.delegate = self
         return tableView
     }()
+    
+    var sheetCount: Int = 1
 
     fileprivate var sheets: [Sheet] = []
     fileprivate var dataManager: SheetDataManager
@@ -95,7 +97,8 @@ class SheetsViewController: UIViewController {
     
     @objc
     private func addNewSheet() {
-        dataManager.insert(object: dataManager.createNewSheet())
+        dataManager.insert(object: dataManager.createNewSheet(number: sheetCount))
+        sheetCount += 1
         fetchSheets()
     }
 
@@ -144,7 +147,8 @@ extension SheetsViewController: UITableViewDelegate {
 
 extension SheetsViewController: AddButtonWasTappedProtocol {
     func addButtonWasTapped() {
-        dataManager.insert(object: dataManager.createNewSheet())
+        dataManager.insert(object: dataManager.createNewSheet(number: sheetCount))
+        sheetCount += 1
         fetchSheets()
     }
 }

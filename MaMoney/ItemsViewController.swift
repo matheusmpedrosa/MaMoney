@@ -53,7 +53,6 @@ class ItemsViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         self.navigationController?.navigationBar.tintColor = .systemBlue
-        self.navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func setupViewUI() {

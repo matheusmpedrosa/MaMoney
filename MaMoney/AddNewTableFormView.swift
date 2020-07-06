@@ -113,6 +113,7 @@ class AddNewTableFormView: UIView {
         button.backgroundColor = .systemBlue
         button.setTitle("Salvar", for: .normal)
         button.setTitle("Salvar", for: .disabled)
+        button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.white, for: .disabled)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.addTarget(self, action: #selector(saveButtonWasTapped), for: .touchUpInside)

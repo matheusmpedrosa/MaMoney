@@ -108,9 +108,9 @@
 		8024020E246618E20025FA52 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				8061FC95246C70CE00480C0D /* Sheet */,
 				8061FCAB246C957F00480C0D /* Table */,
 				8061FCAA246C957600480C0D /* Item */,
-				8061FC95246C70CE00480C0D /* Sheet */,
 				8061FC92246B6C6200480C0D /* Models */,
 			);
 			name = CoreData;

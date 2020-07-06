@@ -10,7 +10,7 @@ import UIKit
 
 class TabBarViewController: UITabBarController {
     
-    private var sheet: Sheet
+    private var sheet: Sheet?
     private var dataManager: TableDataManager
     private var tablesViewController: TablesViewController?
     
@@ -28,14 +28,10 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
-        self.title = sheet.title
+        self.title = sheet?.title
         setTabBarItems()
         appendRightBarButtonItems()
     }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewDidAppear(true)
-//    }
     
     private func appendRightBarButtonItems() {
         let addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewTable))
@@ -49,7 +45,8 @@ class TabBarViewController: UITabBarController {
     
     @objc
     private func addNewTable() {
-        let addNewTableViewController = AddNewTableViewController(dataManager: dataManager, dismissDelegate: self.tablesViewController!)
+        guard let sheet = sheet else { return }
+        let addNewTableViewController = AddNewTableViewController(sheet: sheet, dataManager: dataManager, dismissDelegate: self.tablesViewController!)
         self.present(addNewTableViewController, animated: true, completion: nil)
     }
     
@@ -59,8 +56,9 @@ class TabBarViewController: UITabBarController {
     }
     
     private func setTabBarItems() {
+        guard let sheet = sheet else { return }
         guard let tables = sheet.table.allObjects as? [Table] else { return }
-        self.tablesViewController = TablesViewController(tables: tables, dataManager: dataManager)
+        self.tablesViewController = TablesViewController(sheet: sheet, tables: tables, dataManager: dataManager)
         let tablesTabBarItem = UITabBarItem(title: "Tabelas", image: #imageLiteral(resourceName: "icn-list"), selectedImage: #imageLiteral(resourceName: "icn-list"))
         tablesViewController!.tabBarItem = tablesTabBarItem
         

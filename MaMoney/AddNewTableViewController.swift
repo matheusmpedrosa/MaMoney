@@ -19,9 +19,11 @@ class AddNewTableViewController: UIViewController {
     fileprivate var tableColorName: String = ""
     weak var dismissDelegate: DidDismissViewControllerDelegate?
     
+    fileprivate var sheet: Sheet
     fileprivate var dataManager: TableDataManager
     
-    init(dataManager: TableDataManager, dismissDelegate: DidDismissViewControllerDelegate?) {
+    init(sheet: Sheet, dataManager: TableDataManager, dismissDelegate: DidDismissViewControllerDelegate?) {
+        self.sheet = sheet
         self.dataManager = dataManager
         self.dismissDelegate = dismissDelegate
         super.init(nibName: nil, bundle: nil)
@@ -39,7 +41,6 @@ class AddNewTableViewController: UIViewController {
         formView.didSelectTableColorDelegate = self
         hideKeyboardWhenTappedAround()
     }
-    
 }
 
 extension AddNewTableViewController: TitleTextFieldDidChangeValueProtocol {
@@ -61,6 +62,7 @@ extension AddNewTableViewController: SaveButtonWasTappedProtocol {
         let newTable = Table(context: dataManager.getContext())
         newTable.title = tableTitle
         newTable.color = tableColorName
+        newTable.ofSheet = sheet
         dataManager.insert(object: newTable)
         self.dismiss(animated: true) {
             self.dismissDelegate?.didDismissViewController()

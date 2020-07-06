@@ -37,9 +37,9 @@ class SheetDataManager: DataManagerProtocol {
 }
 
 extension SheetDataManager {
-    func createNewSheet() -> Sheet {
+    func createNewSheet(number: Int) -> Sheet {
         let newSheet = Sheet(context: context)
-        newSheet.title = "Nova planilha"
+        newSheet.title = "Nova planilha \(number)"
         newSheet.date = Date()
         newSheet.table = NSSet.init(array: [])
         return newSheet
@@ -67,6 +67,9 @@ extension SheetDataManager {
         sampleExpensesTable.totalAmount = 334.9
         sampleExpensesTable.item = NSSet.init(array: [sampleExpenseItem1, sampleExpenseItem2])
         
+        sampleExpenseItem1.ofTable = sampleExpensesTable
+        sampleExpenseItem2.ofTable = sampleExpensesTable
+        
         //income table
         let sampleIncomeItem = Item(context: context)
         sampleIncomeItem.title = "Salário"
@@ -81,6 +84,8 @@ extension SheetDataManager {
         sampleIncomesTable.totalAmount = 2500.0
         sampleIncomesTable.item = NSSet.init(array: [sampleIncomeItem])
         
+        sampleIncomeItem.ofTable = sampleIncomesTable
+        
         //left over table
         let sampleLeftOverTable = Table(context: context)
         sampleLeftOverTable.title = "Reserva do mês"
@@ -92,6 +97,10 @@ extension SheetDataManager {
         newSheet.title = "Planilha exemplo"
         newSheet.date = Date()
         newSheet.table = NSSet.init(array: [sampleIncomesTable, sampleExpensesTable, sampleLeftOverTable])
+        
+        sampleExpensesTable.ofSheet = newSheet
+        sampleIncomesTable.ofSheet = newSheet
+        sampleLeftOverTable.ofSheet = newSheet
         
         Sheet.insertObject(from: context)
     }

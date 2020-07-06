@@ -15,16 +15,19 @@ class TablesViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.tableFooterView = UIView()
         return tableView
     }()
     
-    fileprivate var tables: [Table]
+    fileprivate var sheet: Sheet
+    fileprivate var tables: [Table] = []
     fileprivate var dataManager: TableDataManager
     fileprivate var emptyStateView = EmptyStateView(frame: .zero)
     
     fileprivate var commomConstraints: [NSLayoutConstraint] = []
     
-    init(tables: [Table], dataManager: TableDataManager) {
+    init(sheet: Sheet, tables: [Table], dataManager: TableDataManager) {
+        self.sheet = sheet
         self.tables = tables
         self.dataManager = dataManager
         super.init(nibName: nil, bundle: nil)
@@ -39,19 +42,19 @@ class TablesViewController: UIViewController {
         setupViewUI()
         registerCell()
         configureView()
-        fetchTables()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationController?.navigationBar.tintColor = .systemBlue
     }
+
     
     private func setupViewUI() {
         self.view.backgroundColor = .systemBackground
         self.navigationController?.navigationBar.backgroundColor = .systemBackground
+        self.navigationController?.navigationBar.prefersLargeTitles = true
         self.emptyStateView.setup(type: .table, delegate: self)
-        self.tableView.tableFooterView = UIView()
     }
     
     private func registerCell() {
@@ -59,9 +62,10 @@ class TablesViewController: UIViewController {
     }
     
     private func fetchTables() {
-        dataManager.fetchAll { [weak self] (tables) in
-            if let tables = tables as? [Table] {
-                self?.tables = tables
+        self.tables.removeAll()
+        dataManager.fetchAll { [weak self] (allTables) in
+            if let allTables = allTables as? [Table] {
+                self?.tables = allTables.filter { $0.ofSheet == self?.sheet }
             } else {
                 self?.tables = []
             }
@@ -81,10 +85,7 @@ class TablesViewController: UIViewController {
 }
 
 extension TablesViewController: AddButtonWasTappedProtocol {
-    func addButtonWasTapped() {
-        let addNewTableViewController = AddNewTableViewController(dataManager: dataManager, dismissDelegate: self)
-        self.present(addNewTableViewController, animated: true, completion: nil)
-    }
+    func addButtonWasTapped() { }
 }
 
 extension TablesViewController: DidDismissViewControllerDelegate {
@@ -124,7 +125,6 @@ extension TablesViewController: UITableViewDataSource {
 }
 
 extension TablesViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let table = tables[indexPath.row]
         if table.title != "Reserva do mês" {
@@ -132,7 +132,6 @@ extension TablesViewController: UITableViewDelegate {
             navigationController?.pushViewController(itemsViewController, animated: true)
         }
     }
-
 }
 
 extension TablesViewController: ViewConfiguration {
