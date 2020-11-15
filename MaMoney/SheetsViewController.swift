@@ -46,28 +46,26 @@ class SheetsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.navigationItem.largeTitleDisplayMode = .always
+        navigationItem.largeTitleDisplayMode = .always
     }
     
     private func setupViewUI() {
-        self.title = "Planilhas"
-        self.view.backgroundColor = .systemBackground
-        self.navigationController?.navigationBar.tintColor = .systemBlue
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationController?.navigationBar.backgroundColor = .systemBackground
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewSheet))
-        self.emptyStateView.setup(type: .sheet, delegate: self)
-        self.tableView.tableFooterView = UIView()
+        title = "Planilhas"
+        view.backgroundColor = .systemBackground
+        navigationController?.navigationBar.tintColor = .systemBlue
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.backgroundColor = .systemBackground
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewSheet))
+        emptyStateView.setup(type: .sheet, delegate: self)
+        tableView.tableFooterView = UIView()
     }
     
     private func checkForFirstLaunch() {
         let firstLaunch = FirstLaunch(userDefaults: .standard, key: "FirstLaunch")
         if firstLaunch.isFirstLaunch {
             dataManager.insertSampleSheet()
-            fetchSheets()
-        } else {
-            fetchSheets()
         }
+        fetchSheets()
     }
     
     private func registerCell() {

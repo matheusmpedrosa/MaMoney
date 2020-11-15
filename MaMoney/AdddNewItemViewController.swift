@@ -14,7 +14,7 @@ class AdddNewItemViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view = formView
+        view = formView
         formView.titleTextFieldDidChangeValueDelegate = self
         formView.switchDidChangeValueDelegate = self
         formView.stepperDidChangeValueDelegate = self
@@ -44,7 +44,7 @@ extension AdddNewItemViewController: StepperDidChangeValueProtocol {
 }
 
 extension AdddNewItemViewController: ValueTextFieldDidChangeValueProtocol {
-    func ValueTextFieldDidChangeValue(_ value: Decimal) {
+    func valueTextFieldDidChangeValue(_ value: Decimal) {
         print("🦠 ValueTextFieldDidChangeValue")
     }
 }
@@ -58,7 +58,7 @@ extension AdddNewItemViewController: DateTextFieldDidChangeValueProtocol {
 extension AdddNewItemViewController: SaveButtonWasTappedProtocol {
     func saveButtonWasTapped() {
         //save Item model
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     

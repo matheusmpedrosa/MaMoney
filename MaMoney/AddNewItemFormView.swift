@@ -21,7 +21,7 @@ protocol StepperDidChangeValueProtocol: AnyObject {
 }
 
 protocol ValueTextFieldDidChangeValueProtocol: AnyObject {
-    func ValueTextFieldDidChangeValue(_ value: Decimal)
+    func valueTextFieldDidChangeValue(_ value: Decimal)
 }
 
 protocol DateTextFieldDidChangeValueProtocol: AnyObject {
@@ -52,7 +52,7 @@ class AddNewItemFormView: UIView {
     fileprivate lazy var headerLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Adicionar nova tabela"
+        label.text = "Adicionar novo item"
         label.adjustsFontForContentSizeCategory = true
         label.font = UIFont.preferredFont(forTextStyle: .headline)
         return label
@@ -67,7 +67,7 @@ class AddNewItemFormView: UIView {
         return label
     }()
     
-    fileprivate lazy var titleTextField = InputTextField()
+    fileprivate lazy var titleTextField = InputTextField(placeHolder: "Lorem ipsum...")
     
     fileprivate lazy var isInstalmentLabel: UILabel = {
         let label = UILabel(frame: .zero)
@@ -122,7 +122,7 @@ class AddNewItemFormView: UIView {
         return label
     }()
     
-    fileprivate lazy var valueTextField = InputTextField(keyboardType: .decimalPad)
+    fileprivate lazy var valueTextField = InputTextField(placeHolder: "R$ 0,00", keyboardType: .decimalPad)
     
     fileprivate lazy var dateLabel: UILabel = {
         let label = UILabel(frame: .zero)
@@ -140,6 +140,7 @@ class AddNewItemFormView: UIView {
         textField.backgroundColor = .tertiarySystemBackground
         textField.textAlignment = .left
         textField.borderStyle = .roundedRect
+        textField.placeholder = dateFormatter.string(from: Date())
         textField.inputView = datePicker
         return textField
     }()
@@ -161,10 +162,10 @@ class AddNewItemFormView: UIView {
     fileprivate var commomConstraints: [NSLayoutConstraint] = []
     fileprivate var regularConstraints: [NSLayoutConstraint] = []
     fileprivate var largeTextConstraints: [NSLayoutConstraint] = []
-    fileprivate let leadingConstant: CGFloat = 32
-    fileprivate let trailingConstant: CGFloat = -32
-    fileprivate let shortVerticalSpace: CGFloat = -4
-    fileprivate let longVerticalSpace: CGFloat = -16
+    fileprivate let kLeadingConstant: CGFloat = 32
+    fileprivate let kTrailingConstant: CGFloat = -32
+    fileprivate let kShortVerticalSpace: CGFloat = -4
+    fileprivate let kLongVerticalSpace: CGFloat = -16
     
     weak var titleTextFieldDidChangeValueDelegate: TitleTextFieldDidChangeValueProtocol?
     weak var switchDidChangeValueDelegate: SwitchDidChangeValueProtocol?
@@ -182,14 +183,14 @@ class AddNewItemFormView: UIView {
     
     fileprivate var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyy"
+        formatter.dateFormat = "dd/MM/yyyy"
         formatter.locale = Locale(identifier: "pt-br")
         return formatter
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.translatesAutoresizingMaskIntoConstraints = false
+        translatesAutoresizingMaskIntoConstraints = false
         hideNumberOfInstalmentsStepper(!isInstalmentSwitch.isOn)
         titleTextField.delegate = self
         valueTextField.delegate = self
@@ -222,7 +223,7 @@ class AddNewItemFormView: UIView {
     @objc
     fileprivate func valueTextFieldEditindChanged(_ textField: UITextField) {
         textField.formatTextToCurrency()
-        valueTextFieldDidChangeValueDelegate?.ValueTextFieldDidChangeValue(textField.getDecimalValue())
+        valueTextFieldDidChangeValueDelegate?.valueTextFieldDidChangeValue(textField.getDecimalValue())
     }
     
     fileprivate func hideNumberOfInstalmentsStepper(_ hide: Bool) {
@@ -265,11 +266,13 @@ class AddNewItemFormView: UIView {
 
 extension AddNewItemFormView: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if titleTextField.text != "" && valueTextField.text != "" && valueTextField.text != "R$ 0,00" {
-            saveButton.isEnabled = true
-        } else {
+        guard let titleText = titleTextField.text, titleText.isEmpty,
+              let valueText = valueTextField.text, valueText.isEmpty  else {
             saveButton.isEnabled = false
+            return
         }
+        saveButton.isEnabled = true
+
         if textField == titleTextField {
             titleTextFieldDidChangeValueDelegate?.titleTextFieldDidChangeValue(title: textField.text ?? "")
         }
@@ -305,60 +308,60 @@ extension AddNewItemFormView: ViewConfiguration {
             backgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             backgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             
-            containerView.topAnchor.constraint(equalTo: headerLabel.topAnchor, constant: trailingConstant),
+            containerView.topAnchor.constraint(equalTo: headerLabel.topAnchor, constant: kTrailingConstant),
             containerView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
             containerView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor),
             
-            headerLabel.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: longVerticalSpace),
-            headerLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: leadingConstant),
-            headerLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: trailingConstant),
+            headerLabel.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: kLongVerticalSpace),
+            headerLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: kLeadingConstant),
+            headerLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: kTrailingConstant),
             
-            titleLabel.bottomAnchor.constraint(equalTo: titleTextField.topAnchor, constant: shortVerticalSpace),
-            titleLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: leadingConstant),
-            titleLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: trailingConstant),
+            titleLabel.bottomAnchor.constraint(equalTo: titleTextField.topAnchor, constant: kShortVerticalSpace),
+            titleLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: kLeadingConstant),
+            titleLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: kTrailingConstant),
             
-            titleTextField.bottomAnchor.constraint(equalTo: isInstalmentLabel.topAnchor, constant: longVerticalSpace),
-            titleTextField.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: leadingConstant),
-            titleTextField.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: trailingConstant),
+            titleTextField.bottomAnchor.constraint(equalTo: isInstalmentLabel.topAnchor, constant: kLongVerticalSpace),
+            titleTextField.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: kLeadingConstant),
+            titleTextField.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: kTrailingConstant),
             
-            isInstalmentLabel.bottomAnchor.constraint(equalTo: isInstalmentSwitch.topAnchor, constant: shortVerticalSpace),
-            isInstalmentLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: leadingConstant),
+            isInstalmentLabel.bottomAnchor.constraint(equalTo: isInstalmentSwitch.topAnchor, constant: kShortVerticalSpace),
+            isInstalmentLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: kLeadingConstant),
             
-            isInstalmentSwitch.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: leadingConstant),
+            isInstalmentSwitch.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: kLeadingConstant),
             
             instalmentsCountLabel.centerYAnchor.constraint(equalTo: numberOfInstalmentsStepper.centerYAnchor),
-            instalmentsCountLabel.leadingAnchor.constraint(equalTo: numberOfInstalmentsStepper.trailingAnchor, constant: leadingConstant/2),
+            instalmentsCountLabel.leadingAnchor.constraint(equalTo: numberOfInstalmentsStepper.trailingAnchor, constant: kLeadingConstant/2),
             
-            valueLabel.bottomAnchor.constraint(equalTo: valueTextField.topAnchor, constant: shortVerticalSpace),
-            valueLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: leadingConstant),
-            valueLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: trailingConstant),
+            valueLabel.bottomAnchor.constraint(equalTo: valueTextField.topAnchor, constant: kShortVerticalSpace),
+            valueLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: kLeadingConstant),
+            valueLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: kTrailingConstant),
             
-            valueTextField.bottomAnchor.constraint(equalTo: dateLabel.topAnchor, constant: longVerticalSpace),
-            valueTextField.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: leadingConstant),
-            valueTextField.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: trailingConstant),
+            valueTextField.bottomAnchor.constraint(equalTo: dateLabel.topAnchor, constant: kLongVerticalSpace),
+            valueTextField.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: kLeadingConstant),
+            valueTextField.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: kTrailingConstant),
             
-            dateLabel.bottomAnchor.constraint(equalTo: dateTextField.topAnchor, constant: shortVerticalSpace),
-            dateLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: leadingConstant),
-            dateLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: trailingConstant),
+            dateLabel.bottomAnchor.constraint(equalTo: dateTextField.topAnchor, constant: kShortVerticalSpace),
+            dateLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: kLeadingConstant),
+            dateLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: kTrailingConstant),
             
-            dateTextField.bottomAnchor.constraint(equalTo: saveButton.topAnchor, constant: longVerticalSpace),
-            dateTextField.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: leadingConstant),
-            dateTextField.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: trailingConstant),
+            dateTextField.bottomAnchor.constraint(equalTo: saveButton.topAnchor, constant: kLongVerticalSpace),
+            dateTextField.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: kLeadingConstant),
+            dateTextField.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: kTrailingConstant),
             
             saveButton.bottomAnchor.constraint(equalTo: backgroundView.safeAreaLayoutGuide.bottomAnchor),
-            saveButton.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: leadingConstant),
-            saveButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: trailingConstant),
+            saveButton.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: kLeadingConstant),
+            saveButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: kTrailingConstant),
             saveButton.heightAnchor.constraint(equalToConstant: 50)
         ]
         
         regularConstraints = [
             isInstalmentLabel.widthAnchor.constraint(equalTo: backgroundView.widthAnchor, multiplier: 0.5),
             
-            isInstalmentSwitch.bottomAnchor.constraint(equalTo: valueLabel.topAnchor, constant: longVerticalSpace),
+            isInstalmentSwitch.bottomAnchor.constraint(equalTo: valueLabel.topAnchor, constant: kLongVerticalSpace),
             
-            numberOfInstalmentsLabel.bottomAnchor.constraint(equalTo: numberOfInstalmentsStepper.topAnchor, constant: shortVerticalSpace),
-            numberOfInstalmentsLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: trailingConstant),
+            numberOfInstalmentsLabel.bottomAnchor.constraint(equalTo: numberOfInstalmentsStepper.topAnchor, constant: kShortVerticalSpace),
+            numberOfInstalmentsLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: kTrailingConstant),
             numberOfInstalmentsLabel.widthAnchor.constraint(equalTo: backgroundView.widthAnchor, multiplier: 0.5),
             
             numberOfInstalmentsStepper.bottomAnchor.constraint(equalTo: isInstalmentSwitch.bottomAnchor),
@@ -366,16 +369,16 @@ extension AddNewItemFormView: ViewConfiguration {
         ]
 
         largeTextConstraints = [
-            isInstalmentLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: trailingConstant),
+            isInstalmentLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: kTrailingConstant),
             
-            isInstalmentSwitch.bottomAnchor.constraint(equalTo: numberOfInstalmentsLabel.topAnchor, constant: longVerticalSpace),
+            isInstalmentSwitch.bottomAnchor.constraint(equalTo: numberOfInstalmentsLabel.topAnchor, constant: kLongVerticalSpace),
             
-            numberOfInstalmentsLabel.bottomAnchor.constraint(equalTo: numberOfInstalmentsStepper.topAnchor, constant: shortVerticalSpace),
-            numberOfInstalmentsLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: leadingConstant),
-            numberOfInstalmentsLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: trailingConstant),
+            numberOfInstalmentsLabel.bottomAnchor.constraint(equalTo: numberOfInstalmentsStepper.topAnchor, constant: kShortVerticalSpace),
+            numberOfInstalmentsLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: kLeadingConstant),
+            numberOfInstalmentsLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: kTrailingConstant),
 
-            numberOfInstalmentsStepper.bottomAnchor.constraint(equalTo: valueLabel.topAnchor, constant: longVerticalSpace),
-            numberOfInstalmentsStepper.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: leadingConstant)
+            numberOfInstalmentsStepper.bottomAnchor.constraint(equalTo: valueLabel.topAnchor, constant: kLongVerticalSpace),
+            numberOfInstalmentsStepper.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: kLeadingConstant)
         ]
         
         updateLayoutConstraints()

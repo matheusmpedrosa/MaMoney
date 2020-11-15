@@ -42,8 +42,7 @@ class ColorButton: UIButton {
         self.setImage(image, for: .normal)
     }
     
-    @objc
-    private func didTapButton() {
+    @objc func didTapButton() {
         delegate?.didTapColorButton(button: self)
     }
     

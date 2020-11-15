@@ -47,7 +47,7 @@ class AddNewTableFormView: UIView {
         return label
     }()
     
-    fileprivate lazy var titleTextField = InputTextField()
+    fileprivate lazy var titleTextField = InputTextField(placeHolder: "Lorem ipsum...")
     
     fileprivate lazy var colorLabel: UILabel = {
         let label = UILabel(frame: .zero)
@@ -122,11 +122,11 @@ class AddNewTableFormView: UIView {
     }()
     
     fileprivate var commomConstraints: [NSLayoutConstraint] = []
-    fileprivate let leadingConstant: CGFloat = 32
-    fileprivate let trailingConstant: CGFloat = -32
-    fileprivate let shortVerticalSpace: CGFloat = -4
-    fileprivate let longVerticalSpace: CGFloat = -16
-    fileprivate let colorButtonSquare: CGFloat = 44
+    fileprivate let kLeadingConstant: CGFloat = 32
+    fileprivate let kTrailingConstant: CGFloat = -32
+    fileprivate let kShortVerticalSpace: CGFloat = -4
+    fileprivate let kLongVerticalSpace: CGFloat = -16
+    fileprivate let kColorButtonSquare: CGFloat = 44
     
     weak var titleTextFieldDidChangeValueDelegate: TitleTextFieldDidChangeValueProtocol?
     weak var didSelectTableColorDelegate: DidSelectTableColorDelegate?
@@ -134,9 +134,10 @@ class AddNewTableFormView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.translatesAutoresizingMaskIntoConstraints = false
+        translatesAutoresizingMaskIntoConstraints = false
         titleTextField.delegate = self
         configureView()
+        redButton.didTapButton()
     }
     
     required init?(coder: NSCoder) {
@@ -151,11 +152,12 @@ class AddNewTableFormView: UIView {
 
 extension AddNewTableFormView: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if titleTextField.text != "" {
-            saveButton.isEnabled = true
-        } else {
+        if let text = titleTextField.text, text.isEmpty {
             saveButton.isEnabled = false
+        } else {
+            saveButton.isEnabled = true
         }
+        
         if textField == titleTextField {
             titleTextFieldDidChangeValueDelegate?.titleTextFieldDidChangeValue(title: textField.text ?? "")
         }
@@ -199,64 +201,64 @@ extension AddNewTableFormView: ViewConfiguration {
             backgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             backgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             
-            containerView.topAnchor.constraint(equalTo: headerLabel.topAnchor, constant: trailingConstant),
+            containerView.topAnchor.constraint(equalTo: headerLabel.topAnchor, constant: kTrailingConstant),
             containerView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
             containerView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor),
             
-            headerLabel.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: longVerticalSpace),
-            headerLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: leadingConstant),
-            headerLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: trailingConstant),
+            headerLabel.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: kLongVerticalSpace),
+            headerLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: kLeadingConstant),
+            headerLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: kTrailingConstant),
             
-            titleLabel.bottomAnchor.constraint(equalTo: titleTextField.topAnchor, constant: shortVerticalSpace),
-            titleLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: leadingConstant),
-            titleLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: trailingConstant),
+            titleLabel.bottomAnchor.constraint(equalTo: titleTextField.topAnchor, constant: kShortVerticalSpace),
+            titleLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: kLeadingConstant),
+            titleLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: kTrailingConstant),
             
-            titleTextField.bottomAnchor.constraint(equalTo: colorLabel.topAnchor, constant: longVerticalSpace),
-            titleTextField.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: leadingConstant),
-            titleTextField.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: trailingConstant),
+            titleTextField.bottomAnchor.constraint(equalTo: colorLabel.topAnchor, constant: kLongVerticalSpace),
+            titleTextField.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: kLeadingConstant),
+            titleTextField.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: kTrailingConstant),
             
-            colorLabel.bottomAnchor.constraint(equalTo: verticalStackView.topAnchor, constant: shortVerticalSpace),
-            colorLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: leadingConstant),
-            colorLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: leadingConstant),
+            colorLabel.bottomAnchor.constraint(equalTo: verticalStackView.topAnchor, constant: kShortVerticalSpace),
+            colorLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: kLeadingConstant),
+            colorLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: kLeadingConstant),
             
-            verticalStackView.bottomAnchor.constraint(equalTo: saveButton.topAnchor, constant: longVerticalSpace),
-            verticalStackView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: leadingConstant),
-            verticalStackView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: trailingConstant),
+            verticalStackView.bottomAnchor.constraint(equalTo: saveButton.topAnchor, constant: kLongVerticalSpace),
+            verticalStackView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: kLeadingConstant),
+            verticalStackView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: kTrailingConstant),
             
-            redButton.heightAnchor.constraint(equalToConstant: colorButtonSquare),
-            redButton.widthAnchor.constraint(equalToConstant: colorButtonSquare),
+            redButton.heightAnchor.constraint(equalToConstant: kColorButtonSquare),
+            redButton.widthAnchor.constraint(equalToConstant: kColorButtonSquare),
             
-            greenButton.heightAnchor.constraint(equalToConstant: colorButtonSquare),
-            greenButton.widthAnchor.constraint(equalToConstant: colorButtonSquare),
+            greenButton.heightAnchor.constraint(equalToConstant: kColorButtonSquare),
+            greenButton.widthAnchor.constraint(equalToConstant: kColorButtonSquare),
             
-            blueButton.heightAnchor.constraint(equalToConstant: colorButtonSquare),
-            blueButton.widthAnchor.constraint(equalToConstant: colorButtonSquare),
+            blueButton.heightAnchor.constraint(equalToConstant: kColorButtonSquare),
+            blueButton.widthAnchor.constraint(equalToConstant: kColorButtonSquare),
             
-            orangeButton.heightAnchor.constraint(equalToConstant: colorButtonSquare),
-            orangeButton.widthAnchor.constraint(equalToConstant: colorButtonSquare),
+            orangeButton.heightAnchor.constraint(equalToConstant: kColorButtonSquare),
+            orangeButton.widthAnchor.constraint(equalToConstant: kColorButtonSquare),
             
-            yellowButton.heightAnchor.constraint(equalToConstant: colorButtonSquare),
-            yellowButton.widthAnchor.constraint(equalToConstant: colorButtonSquare),
+            yellowButton.heightAnchor.constraint(equalToConstant: kColorButtonSquare),
+            yellowButton.widthAnchor.constraint(equalToConstant: kColorButtonSquare),
             
-            pinkButton.heightAnchor.constraint(equalToConstant: colorButtonSquare),
-            pinkButton.widthAnchor.constraint(equalToConstant: colorButtonSquare),
+            pinkButton.heightAnchor.constraint(equalToConstant: kColorButtonSquare),
+            pinkButton.widthAnchor.constraint(equalToConstant: kColorButtonSquare),
             
-            purpleButton.heightAnchor.constraint(equalToConstant: colorButtonSquare),
-            purpleButton.widthAnchor.constraint(equalToConstant: colorButtonSquare),
+            purpleButton.heightAnchor.constraint(equalToConstant: kColorButtonSquare),
+            purpleButton.widthAnchor.constraint(equalToConstant: kColorButtonSquare),
             
-            tealButton.heightAnchor.constraint(equalToConstant: colorButtonSquare),
-            tealButton.widthAnchor.constraint(equalToConstant: colorButtonSquare),
+            tealButton.heightAnchor.constraint(equalToConstant: kColorButtonSquare),
+            tealButton.widthAnchor.constraint(equalToConstant: kColorButtonSquare),
             
-            indigoButton.heightAnchor.constraint(equalToConstant: colorButtonSquare),
-            indigoButton.widthAnchor.constraint(equalToConstant: colorButtonSquare),
+            indigoButton.heightAnchor.constraint(equalToConstant: kColorButtonSquare),
+            indigoButton.widthAnchor.constraint(equalToConstant: kColorButtonSquare),
             
-            grayButton.heightAnchor.constraint(equalToConstant: colorButtonSquare),
-            grayButton.widthAnchor.constraint(equalToConstant: colorButtonSquare),
+            grayButton.heightAnchor.constraint(equalToConstant: kColorButtonSquare),
+            grayButton.widthAnchor.constraint(equalToConstant: kColorButtonSquare),
             
             saveButton.bottomAnchor.constraint(equalTo: backgroundView.safeAreaLayoutGuide.bottomAnchor),
-            saveButton.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: leadingConstant),
-            saveButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: trailingConstant),
+            saveButton.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: kLeadingConstant),
+            saveButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: kTrailingConstant),
             saveButton.heightAnchor.constraint(equalToConstant: 50)
         ]
         

@@ -51,10 +51,10 @@ class TablesViewController: UIViewController {
 
     
     private func setupViewUI() {
-        self.view.backgroundColor = .systemBackground
-        self.navigationController?.navigationBar.backgroundColor = .systemBackground
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.emptyStateView.setup(type: .table, delegate: self)
+        view.backgroundColor = .systemBackground
+        navigationController?.navigationBar.backgroundColor = .systemBackground
+        navigationController?.navigationBar.prefersLargeTitles = true
+        emptyStateView.setup(type: .table, delegate: self)
     }
     
     private func registerCell() {
@@ -62,7 +62,7 @@ class TablesViewController: UIViewController {
     }
     
     private func fetchTables() {
-        self.tables.removeAll()
+        tables.removeAll()
         dataManager.fetchAll { [weak self] (allTables) in
             if let allTables = allTables as? [Table] {
                 self?.tables = allTables.filter { $0.ofSheet == self?.sheet }
@@ -72,7 +72,7 @@ class TablesViewController: UIViewController {
             self?.tableView.reloadData()
         }
         
-        if self.tables.isEmpty {
+        if  tables.isEmpty {
             UIView.transition(with: emptyStateView, duration: 0.3, options: .curveEaseInOut, animations: {
                 self.emptyStateView.alpha = 1
             }, completion: nil)

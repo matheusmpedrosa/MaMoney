@@ -35,7 +35,7 @@ class AddNewTableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view = formView
+        view = formView
         formView.didTapSaveButtonDelegate = self
         formView.titleTextFieldDidChangeValueDelegate = self
         formView.didSelectTableColorDelegate = self
@@ -45,15 +45,14 @@ class AddNewTableViewController: UIViewController {
 
 extension AddNewTableViewController: TitleTextFieldDidChangeValueProtocol {
     func titleTextFieldDidChangeValue(title: String) {
-        self.tableTitle = title
+        tableTitle = title
     }
 }
 
 extension AddNewTableViewController: DidSelectTableColorDelegate {
     func didSelectTableColor(color: String?) {
-        if let color = color {
-            self.tableColorName = color
-        }
+        guard let color = color else { return }
+        tableColorName = color
     }
 }
 
@@ -64,7 +63,7 @@ extension AddNewTableViewController: SaveButtonWasTappedProtocol {
         newTable.color = tableColorName
         newTable.ofSheet = sheet
         dataManager.insert(object: newTable)
-        self.dismiss(animated: true) {
+        dismiss(animated: true) {
             self.dismissDelegate?.didDismissViewController()
         }
     }

@@ -26,6 +26,6 @@ extension String {
         
         let color = colorsDictionary.filter { $0.key == self }
         
-        return color.first!.value
+        return color.first?.value ?? .systemRed
     }
 }
